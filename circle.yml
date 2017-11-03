@@ -1,0 +1,50 @@
+version: 2
+
+jobs:
+  build:
+    working_directory: ~/portal
+
+    docker:
+      - image: maketested/python-clojure:latest
+        environment:
+          PIPENV_VENV_IN_PROJECT: true
+          PIPENV_NOSPIN: true
+          PIPENV_HIDE_EMOJIS: true
+          HEROKU_APP_NAME: circleci
+          DATABASE_URL: postgres://circleci:@127.0.0.1:5432/portal_test
+          RANDOM_SEED: 0
+      - image: circleci/postgres:9.6-alpine-ram
+        environment:
+          - POSTGRES_USER=circleci
+          - POSTGRES_DB=portal_test
+
+    steps:
+      # Get code
+      - checkout
+
+      # Check system dependencies
+      - run: make doctor
+
+      # Restore cache
+      - type: cache-restore
+        key: pipenv-\{\{ checksum "Pipfile.lock" \}\}
+
+      # Install project dependencies
+      - run: make install
+
+      # Store cache
+      - type: cache-save
+        key: pipenv-\{\{ checksum "Pipfile.lock" \}\}
+        paths:
+          - .venv
+
+      # Backend tests
+      - run: make check-backend
+      - run: make test-backend
+
+      # Frontend tests
+      - run: make test-frontend
+
+      # End-to-end test
+      - run: make data DJANGO_SETTINGS_MODULE=config.settings.staging SECRET_KEY=staging
+      - run: make test-system
