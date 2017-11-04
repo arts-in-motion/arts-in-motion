@@ -11,8 +11,8 @@ from django.db.utils import IntegrityError
 
 from faker import Faker
 
-from portal.contacts.models import ContactType, Contact, Student, Volunteer
-
+from portal.contacts.models import (ContactType, Contact,
+                                    Student, Volunteer, Donor)
 
 User = get_user_model()
 fake = Faker()
@@ -117,16 +117,23 @@ class Command(BaseCommand):
         while Student.objects.count() < 10:
             with suppress(IntegrityError):
                 obj = Student.objects.create(
-                    name=self.random_contact("Student"),
+                    contact=self.random_contact("Student"),
                 )
                 self.stdout.write(f"Created student: {obj}")
 
         while Volunteer.objects.count() < 10:
             with suppress(IntegrityError):
                 obj = Volunteer.objects.create(
-                    name=self.random_contact("Volunteer"),
+                    contact=self.random_contact("Volunteer"),
                 )
                 self.stdout.write(f"Created volunteer: {obj}")
+
+        while Donor.objects.count() < 10:
+            with suppress(IntegrityError):
+                obj = Donor.objects.create(
+                    contact=self.random_contact("Donor"),
+                )
+                self.stdout.write(f"Created donor: {obj}")
 
     def random_user(self, skip=None):
         skip_ids = [self.new_user_id]
