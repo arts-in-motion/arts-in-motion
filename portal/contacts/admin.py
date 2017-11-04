@@ -41,6 +41,7 @@ class ContactTypeAdmin(admin.ModelAdmin):
         'name',
     ]
 
+
 @admin.register(models.Student)
 class StudentAdmin(admin.ModelAdmin):
 

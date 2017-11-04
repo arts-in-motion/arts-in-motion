@@ -44,6 +44,7 @@ class Contact(models.Model):
         else:
             return f"{self.name}"
 
+
 class Student(models.Model):
 
     name = models.ForeignKey(Contact, on_delete=models.CASCADE)
