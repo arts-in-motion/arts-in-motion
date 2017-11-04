@@ -155,22 +155,10 @@ class CommunicationRecord(models.Model):
 
 class Donor(models.Model):
 
-    INDIVIDUAL = 'Individual'
-    ORGANIZATION = 'Organization'
-    DONOR_TYPE_CHOICES = (
-        (INDIVIDUAL, 'Individual'),
-        (ORGANIZATION, 'Organization')
-    )
-    donor_type = models.CharField(
-        max_length=30,
-        choices=DONOR_TYPE_CHOICES,
-        default=INDIVIDUAL
-    )
-    # TODO: Make exactingly one required based on type
+    # TODO: Make exactingly one required based on type?
     individual = models.ForeignKey(Individual, blank=True, null=True)
     organization = models.ForeignKey(Organization, blank=True, null=True)
 
-    # organization = models.CharField(max_length=100, blank=True, null=True)
     billing_contact = models.CharField(max_length=100, blank=True, null=True)
     billing_street_address = models.CharField(
         max_length=100,

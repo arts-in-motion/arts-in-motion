@@ -86,6 +86,14 @@ class DonorInline(SingleInline):
     verbose_name = "Donor Info"
 
 
+class IndividualDonorInline(DonorInline):
+    exclude = ['organization']
+
+
+class OrganizationDonorInline(DonorInline):
+    exclude = ['individual']
+
+
 @admin.register(models.Individual)
 class IndividualAdmin(admin.ModelAdmin):
 
@@ -105,7 +113,11 @@ class IndividualAdmin(admin.ModelAdmin):
         'last_name',
     ]
 
-    inlines = [StudentInline, VolunteerInline, DonorInline]
+    inlines = [
+        StudentInline,
+        VolunteerInline,
+        IndividualDonorInline,
+    ]
 
 
 @admin.register(models.Organization)
@@ -124,4 +136,8 @@ class OrganizationAdmin(admin.ModelAdmin):
 
     ordering = [
         'name',
+    ]
+
+    inlines = [
+        OrganizationDonorInline,
     ]
