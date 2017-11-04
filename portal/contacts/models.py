@@ -21,7 +21,7 @@ class Person(models.Model):
         max_length=20,
         choices=CONTACT_METHOD_CHOICES,
         default=PHONE
-        )
+    )
     notes = models.TextField(blank=True, null=True)
     signed_up_date = models.DateField(blank=True, null=True)
 
