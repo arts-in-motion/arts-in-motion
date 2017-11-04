@@ -50,9 +50,35 @@ class StudentAdmin(admin.ModelAdmin):
     ]
 
     list_display = [
-        'name',
+        '_name',
+        'classes',
     ]
 
     ordering = [
         'name',
     ]
+
+    @staticmethod
+    def _name(student):
+        return student.name.name
+
+
+@admin.register(models.Volunteer)
+class VolunteerAdmin(admin.ModelAdmin):
+
+    search_fields = [
+        'name',
+    ]
+
+    list_display = [
+        '_name',
+        'availability',
+    ]
+
+    ordering = [
+        'name',
+    ]
+
+    @staticmethod
+    def _name(volunteer):
+        return volunteer.name.name
