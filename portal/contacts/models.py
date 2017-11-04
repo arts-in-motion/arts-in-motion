@@ -39,4 +39,7 @@ class Contact(models.Model):
     signed_up_date = models.DateField(blank=True, null=True)
 
     def __str__(self):
-        return f"{self.name}"
+        if self.kind:
+            return f"{self.name} ({self.kind})"
+        else:
+            return f"{self.name}"
