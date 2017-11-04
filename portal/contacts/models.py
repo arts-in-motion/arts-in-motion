@@ -44,6 +44,26 @@ class Contact(models.Model):
         else:
             return f"{self.name}"
 
+
+class Student(models.Model):
+
+    name = models.ForeignKey(Contact, on_delete=models.CASCADE)
+    # link to classes foreignkey
+    classes = models.TextField(blank=True, null=True)
+    strengths = models.TextField(blank=True, null=True)
+    health_concerns = models.TextField(blank=True, null=True)
+    accessibility_needs = models.TextField(blank=True, null=True)
+    food_allergies = models.TextField(blank=True, null=True)
+    # todo link to forms
+    needs_tuition_assistance = models.BooleanField(default=False)
+    accepted_dance_liability = models.BooleanField(default=False)
+    photo_release = models.BooleanField(default=False)
+    notes = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return f"{self.name}"
+
+
 class Volunteer(models.Model):
 
     name = models.ForeignKey(Contact)
