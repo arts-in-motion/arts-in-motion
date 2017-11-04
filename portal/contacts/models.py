@@ -18,9 +18,12 @@ class Person(models.Model):
         (EMAIL, 'Email'),
     )
     contact_method = models.CharField(
-        max_length=20, choices=CONTACT_METHOD_CHOICES, default=PHONE)
+        max_length=20,
+        choices=CONTACT_METHOD_CHOICES,
+        default=PHONE
+    )
     notes = models.TextField(blank=True, null=True)
     signed_up_date = models.DateField(blank=True, null=True)
 
     def __str__(self):
-        return self.name
+        return f"{self.name}"

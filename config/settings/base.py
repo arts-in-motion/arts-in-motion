@@ -25,8 +25,6 @@ INSTALLED_APPS = [
     'portal.api',
     'portal.time_tracker',
 
-    'allauth',
-    'allauth.account',
     'rest_framework',
     'rest_framework_swagger'
 ]
