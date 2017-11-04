@@ -34,20 +34,15 @@ doctor: ## Check for required system dependencies
 # PROJECT DEPENDENCIES ########################################################
 
 BACKEND_DEPENDENCIES := tmp/.pipenv-$(shell bin/checksum Pipfile.lock)
-FRONTEND_DEPENDENCIES :=
 
 .PHONY: install
 ifndef SKIP_INSTALL
-install: $(BACKEND_DEPENDENCIES) $(FRONTEND_DEPENDENCIES) ## Install project dependencies
+install: $(BACKEND_DEPENDENCIES) ## Install project dependencies
 endif
 
 $(BACKEND_DEPENDENCIES): Pipfile
 	mkdir -p tmp
 	pipenv install --dev
-	@ touch $@
-
-$(FRONTEND_DEPENDENCIES):
-	# TODO: Install frontend dependencies if applicable
 	@ touch $@
 
 .PHONY: clean
@@ -89,50 +84,33 @@ PYTEST_OPTIONS := --no-cov
 endif
 
 .PHONY: check
-check: check-backend ## Run static analysis
-
-.PHONY: check-backend
-check-backend: install
+check: install ## Run static analysis
 	$(RUN) pylint $(PYTHON_PACKAGES) tests --rcfile=.pylint.ini
 	$(RUN) pycodestyle $(PYTHON_PACKAGES) tests --config=.pycodestyle.ini
 
-.PHONY: check-frontend
-check-frontend: install
-	# TODO: Run frontend linters if applicable
-
 .PHONY: test
-test: test-backend test-frontend ## Run all tests
+test: test-all ## Run all tests
 
-.PHONY: test-backend
-test-backend: test-backend-all
-
-.PHONY: test-backend-unit
-test-backend-unit: install
+.PHONY: test-unit
+test-unit: install
 	@- mv $(FAILURES) $(FAILURES).bak
 	$(RUN) py.test portal $(PYTEST_OPTIONS)
 	@- mv $(FAILURES).bak $(FAILURES)
 	$(RUN) coverage.space arts-in-motion/arts-in-motion unit
 
-.PHONY: test-backend-integration
-test-backend-integration: install
+.PHONY: test-integration
+test-integration: install
 	@ if test -e $(FAILURES); then $(RUN) py.test tests/integration; fi
 	@ rm -rf $(FAILURES)
 	$(RUN) py.test tests/integration $(PYTEST_OPTIONS)
 	$(RUN) coverage.space arts-in-motion/arts-in-motion integration
 
-.PHONY: test-backend-all
-test-backend-all: install
+.PHONY: test-all
+test-all: install
 	@ if test -e $(FAILURES); then $(RUN) py.test $(PYTHON_PACKAGES) tests/integration; fi
 	@ rm -rf $(FAILURES)
 	$(RUN) py.test $(PYTHON_PACKAGES) tests/integration $(PYTEST_OPTIONS)
 	$(RUN) coverage.space arts-in-motion/arts-in-motion overall
-
-.PHONY: test-frontend
-test-frontend: test-frontend-unit
-
-.PHONY: test-frontend-unit
-test-frontend-unit: install
-	# TODO: Run frontend tests if applicable
 
 .PHONY: test-system
 test-system: install
