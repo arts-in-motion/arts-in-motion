@@ -17,3 +17,18 @@ class PersonAdmin(admin.ModelAdmin):
     ordering = [
         'name',
     ]
+
+@admin.register(models.Student)
+class StudentAdmin(admin.ModelAdmin):
+
+    search_fields = [
+        'name',
+    ]
+
+    list_display = [
+        'name',
+    ]
+
+    ordering = [
+        'name',
+    ]
