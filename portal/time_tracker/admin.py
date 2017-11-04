@@ -1,3 +1,19 @@
 from django.contrib import admin
 
-# Register your models here.
+from . import models
+
+
+@admin.register(models.TimeTracker)
+class TimeTrackerForm(admin.ModelAdmin):
+
+    search_fields = [
+        'person'
+    ]
+
+    list_display = [
+        'person'
+    ]
+
+    ordering = [
+        'person'
+    ]

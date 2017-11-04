@@ -1,6 +1,7 @@
 from django.db import models
 
-class Time_tracker(models.Model):
+
+class TimeTracker(models.Model):
 
     EVENT = "event"
     CLASS = "class"
@@ -13,6 +14,7 @@ class Time_tracker(models.Model):
     )
 
     hours = models.IntegerField()
-    notes = models.charField(max_length=1000)
-    person = models.name = models.ForeignKey('contacts.person', on_delete=models.CASCADE)
+    notes = models.CharField(max_length=1000)
+    person = models.name = models.ForeignKey(
+        'contacts.person', on_delete=models.CASCADE)
     date = models.DateField()
