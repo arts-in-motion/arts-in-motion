@@ -10,3 +10,8 @@ BASE_URL = f"https://{BASE_DOMAIN}"
 ALLOWED_HOSTS += [
     '.herokuapp.com',
 ]
+
+###############################################################################
+# Auth
+
+AUTH_PASSWORD_VALIDATORS = []
