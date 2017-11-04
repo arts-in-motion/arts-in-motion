@@ -11,11 +11,15 @@ from django.db.utils import IntegrityError
 
 from faker import Faker
 
-from portal.contacts.models import (Contact,
+from portal.contacts.models import (Individual, Organization,
                                     Student, Volunteer, Donor)
 
 User = get_user_model()
 fake = Faker()
+
+
+def p(value):
+    return value < random.random()
 
 
 class Command(BaseCommand):
@@ -79,46 +83,62 @@ class Command(BaseCommand):
                 )
                 self.stdout.write(f"Created user: {user}")
 
-        while Contact.objects.count() < 200:
-            if random.random() < .60:
-                name = fake.name()
-                date_of_birth = fake.date()
-            else:
-                name = fake.company()
-                date_of_birth = None
-
+        while Individual.objects.count() < 200:
             with suppress(IntegrityError):
-                obj = Contact.objects.create(
-                    name=name,
+                obj = Individual.objects.create(
+                    prefix=fake.prefix() if p(.5) else None,
+                    first_name=fake.first_name(),
+                    middle_name=fake.first_name() if p(.1) else None,
+                    last_name=fake.last_name(),
+                    suffix=fake.suffix() if p(.1) else None,
                     street_address=fake.address(),
                     city=fake.city(),
                     state=fake.state(),
                     zip_code=fake.postalcode(),
                     phone_number=fake.phone_number(),
                     email_address=fake.email(),
-                    date_of_birth=date_of_birth,
+                    date_of_birth=fake.date(),
                     signed_up_date=fake.date(),
                 )
-                self.stdout.write(f"Created contact: {obj}")
+                self.stdout.write(f"Created individual: {obj}")
 
-        while Student.objects.count() < 10:
+        while Organization.objects.count() < 200:
+            with suppress(IntegrityError):
+                obj = Organization.objects.create(
+                    name=fake.company(),
+                    street_address=fake.address(),
+                    city=fake.city(),
+                    state=fake.state(),
+                    zip_code=fake.postalcode(),
+                    phone_number=fake.phone_number(),
+                    email_address=fake.email(),
+                    signed_up_date=fake.date(),
+                )
+                self.stdout.write(f"Created individual: {obj}")
+
+        while Student.objects.count() < 100:
             with suppress(IntegrityError):
                 obj = Student.objects.create(
-                    contact=self.random_contact(),
+                    contact=self.random_individual(),
                 )
                 self.stdout.write(f"Created student: {obj}")
 
-        while Volunteer.objects.count() < 10:
+        while Volunteer.objects.count() < 100:
             with suppress(IntegrityError):
                 obj = Volunteer.objects.create(
-                    contact=self.random_contact(),
+                    contact=self.random_individual(),
                 )
                 self.stdout.write(f"Created volunteer: {obj}")
 
-        while Donor.objects.count() < 10:
+        while Donor.objects.count() < 100:
+            if p(.5):
+                kwargs = {'individual': self.random_individual()}
+            else:
+                kwargs = {'organization': self.random_organization()}
+
             with suppress(IntegrityError):
                 obj = Donor.objects.create(
-                    contact=self.random_contact(),
+                    **kwargs,
                 )
                 self.stdout.write(f"Created donor: {obj}")
 
@@ -129,8 +149,12 @@ class Command(BaseCommand):
         return random.choice(User.objects.exclude(id__in=skip_ids))
 
     @staticmethod
-    def random_contact():
-        return random.choice(Contact.objects.filter())
+    def random_individual():
+        return random.choice(Individual.objects.filter())
+
+    @staticmethod
+    def random_organization():
+        return random.choice(Organization.objects.filter())
 
     @staticmethod
     def fake_username():

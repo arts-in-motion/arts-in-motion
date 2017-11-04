@@ -2,7 +2,7 @@ from django.core.management.base import BaseCommand
 
 import openpyxl
 
-from portal.contacts.models import Contact
+from portal.contacts.models import Individual
 
 
 class Command(BaseCommand):
@@ -39,13 +39,13 @@ class Command(BaseCommand):
 
             data = dict(zip(headers, [c.value for c in row]))
 
-            contact, created = Contact.objects.get_or_create(
+            obj, created = Individual.objects.get_or_create(
                 name=f"{data['FIRST']} {data['LAST']}",
             )
             # TODO: Set additional fields
-            # contact.foo = bar
-            contact.save()
+            # individual.foo = bar
+            obj.save()
             if created:
-                self.stdout.write(f"Created contact: {contact}")
+                self.stdout.write(f"Created individual: {obj}")
             else:
-                self.stdout.write(f"Updated contact: {contact}")
+                self.stdout.write(f"Updated individual: {obj}")

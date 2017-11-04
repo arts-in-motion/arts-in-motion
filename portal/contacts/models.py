@@ -1,27 +1,18 @@
 from django.db import models
 
 
-class ContactType(models.Model):
-
-    name = models.CharField(max_length=100)
+class ContactInfo(models.Model):
 
     class Meta:
-        verbose_name_plural = "Contact Types"
+        abstract = True
 
-    def __str__(self):
-        return f"{self.name}"
-
-
-class Contact(models.Model):
-
-    name = models.CharField(max_length=100)
     street_address = models.CharField(max_length=100, blank=True, null=True)
     city = models.CharField(max_length=50, blank=True, null=True)
     state = models.CharField(max_length=50, blank=True, null=True)
     zip_code = models.CharField(max_length=10, blank=True, null=True)
     phone_number = models.CharField(max_length=20, blank=True, null=True)
     email_address = models.EmailField(blank=True, null=True)
-    date_of_birth = models.DateField(blank=True, null=True)
+
     PHONE = 'Phone'
     EMAIL = 'Email'
     CONTACT_METHOD_CHOICES = (
@@ -35,15 +26,41 @@ class Contact(models.Model):
     )
     notes = models.TextField(blank=True, null=True)
     signed_up_date = models.DateField(blank=True, null=True)
-    emergency_contact = models.ForeignKey("self", blank=True, null=True)
 
     def __str__(self):
         return f"{self.name}"
 
 
+class Individual(ContactInfo):
+
+    prefix = models.CharField(max_length=10, blank=True, null=True)
+    first_name = models.CharField(max_length=50)
+    middle_name = models.CharField(max_length=50, blank=True, null=True)
+    last_name = models.CharField(max_length=50)
+    suffix = models.CharField(max_length=10, blank=True, null=True)
+
+    date_of_birth = models.DateField(blank=True, null=True)
+
+    emergency_contact = models.ForeignKey('self', blank=True, null=True)
+
+    @property
+    def name(self):
+        base = ' '.join([p for p in [self.prefix, self.first_name,
+                                     self.middle_name, self.last_name] if p])
+        if self.suffix:
+            return f"{base}, {self.suffix}"
+        else:
+            return base
+
+
+class Organization(ContactInfo):
+
+    name = models.CharField(max_length=100)
+
+
 class Student(models.Model):
 
-    contact = models.OneToOneField(Contact)
+    contact = models.OneToOneField(Individual)
 
     # link to classes foreignkey
     classes = models.TextField(blank=True, null=True)
@@ -63,7 +80,7 @@ class Student(models.Model):
 
 class Volunteer(models.Model):
 
-    contact = models.OneToOneField(Contact)
+    contact = models.OneToOneField(Individual)
 
     special_skills = models.TextField(blank=True, null=True)
     FUNDRAISING = 'Fundraising'
@@ -122,18 +139,21 @@ class Volunteer(models.Model):
 class CommunicationRecord(models.Model):
 
     internal_contact = models.ForeignKey(
-        Contact,
+        Individual,
         related_name="internal_contact"
     )
-    external_contact = models.ForeignKey(Contact)
+
+    # TODO: Make at least one required?
+    external_contact = models.ForeignKey(Individual, blank=True, null=True)
+    external_organization = models.ForeignKey(
+        Organization, blank=True, null=True)
+
     date_of_communication = models.DateTimeField(auto_now=True)
     # follow_up = models.DateTimeField()
     notes = models.TextField(blank=True, null=True)
 
 
 class Donor(models.Model):
-
-    contact = models.ForeignKey(Contact)
 
     INDIVIDUAL = 'Individual'
     ORGANIZATION = 'Organization'
@@ -146,7 +166,11 @@ class Donor(models.Model):
         choices=DONOR_TYPE_CHOICES,
         default=INDIVIDUAL
     )
-    organization = models.CharField(max_length=100, blank=True, null=True)
+    # TODO: Make exactingly one required based on type
+    individual = models.ForeignKey(Individual, blank=True, null=True)
+    organization = models.ForeignKey(Organization, blank=True, null=True)
+
+    # organization = models.CharField(max_length=100, blank=True, null=True)
     billing_contact = models.CharField(max_length=100, blank=True, null=True)
     billing_street_address = models.CharField(
         max_length=100,
@@ -177,4 +201,4 @@ class Donor(models.Model):
     notes = models.TextField(blank=True, null=True)
 
     def __str__(self):
-        return f"{self.contact}"
+        return f"{self.individual or self.organization}"

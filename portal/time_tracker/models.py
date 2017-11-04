@@ -1,6 +1,6 @@
 from django.db import models
 
-from portal.contacts.models import Contact
+from portal.contacts.models import Individual
 
 
 class Record(models.Model):
@@ -17,6 +17,5 @@ class Record(models.Model):
 
     hours = models.IntegerField()
     notes = models.TextField(blank=True, null=True)
-    person = models.name = models.ForeignKey(
-        Contact, on_delete=models.CASCADE)
+    person = models.name = models.ForeignKey(Individual)
     date = models.DateField()

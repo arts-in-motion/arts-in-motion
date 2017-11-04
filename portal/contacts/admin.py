@@ -86,8 +86,30 @@ class DonorInline(SingleInline):
     verbose_name = "Donor Info"
 
 
-@admin.register(models.Contact)
-class ContactAdmin(admin.ModelAdmin):
+@admin.register(models.Individual)
+class IndividualAdmin(admin.ModelAdmin):
+
+    search_fields = [
+        'name',
+        'email_address',
+    ]
+
+    list_display = [
+        'name',
+        'phone_number',
+        'email_address',
+    ]
+
+    ordering = [
+        'first_name',
+        'last_name',
+    ]
+
+    inlines = [StudentInline, VolunteerInline, DonorInline]
+
+
+@admin.register(models.Organization)
+class OrganizationAdmin(admin.ModelAdmin):
 
     search_fields = [
         'name',
@@ -103,5 +125,3 @@ class ContactAdmin(admin.ModelAdmin):
     ordering = [
         'name',
     ]
-
-    inlines = [StudentInline, VolunteerInline, DonorInline]
