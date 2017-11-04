@@ -48,7 +48,7 @@ class Contact(models.Model):
 
 class Student(models.Model):
 
-    name = models.ForeignKey(Contact, on_delete=models.CASCADE)
+    name = models.OneToOneField(Contact)
     # link to classes foreignkey
     classes = models.TextField(blank=True, null=True)
     strengths = models.TextField(blank=True, null=True)
@@ -67,7 +67,7 @@ class Student(models.Model):
 
 class Volunteer(models.Model):
 
-    name = models.ForeignKey(Contact)
+    name = models.OneToOneField(Contact)
     special_skills = models.TextField(blank=True, null=True)
     ways_to_help = models.TextField(blank=True, null=True)
     availability = models.TextField(blank=True, null=True)
