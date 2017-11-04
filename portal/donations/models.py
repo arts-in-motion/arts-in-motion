@@ -3,6 +3,7 @@ from django.db import models
 from portal.contacts.models import Donor
 from portal.events.models import Event
 
+
 class Donation(models.Model):
 
     donor = models.ForeignKey(Donor)
