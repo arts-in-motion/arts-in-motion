@@ -38,13 +38,8 @@ jobs:
         paths:
           - .venv
 
-      # Backend tests
-      - run: make check-backend
-      - run: make test-backend
+      # Static analysis
+      - run: make check
 
-      # Frontend tests
-      - run: make test-frontend
-
-      # End-to-end test
-      - run: make data DJANGO_SETTINGS_MODULE=config.settings.staging SECRET_KEY=staging
-      - run: make test-system
+      # Unit and integration tests
+      - run: make test
