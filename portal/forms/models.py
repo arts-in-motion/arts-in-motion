@@ -17,13 +17,12 @@ class Form(models.Model):
     name = models.CharField(max_length=100)
     person = models.name = models.ForeignKey(
         'contacts.person', on_delete=models.CASCADE)
-    formType = models.CharField(
+    form_type = models.CharField(
         choices=FORM_TYPE_CHOICES,
         max_length=30
     )
-    isFilled = models.BooleanField()
     notes = models.TextField(blank=True, null=True)
+    is_filled = models.BooleanField()
 
     date = models.DateField()
-    # TODO make this set auto based on edit
-    lastEdited = models.DateField(auto_now=True)
+    last_edited = models.DateField(auto_now=True)

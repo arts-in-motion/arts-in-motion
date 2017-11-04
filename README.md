@@ -57,10 +57,8 @@ $ make watch
 or run them individually:
 
 ```
-$ make check-backend
-$ make check-frontend
-$ make test-backend-unit
-$ make test-backend-integration
-$ make test-frontend-unit
+$ make check
+$ make test-unit
+$ make test-integration
 $ make test-system
 ```
