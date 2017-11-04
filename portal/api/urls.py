@@ -9,8 +9,9 @@ from rest_framework_swagger.views import get_swagger_view
 root = routers.DefaultRouter()
 
 
-# App: donors
+# Apps
 
+# TODO: Add apps here if needed
 # root.register(...)
 
 
