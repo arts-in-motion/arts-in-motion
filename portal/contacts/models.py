@@ -17,7 +17,11 @@ class Person(models.Model):
         (PHONE, 'Phone'),
         (EMAIL, 'Email'),
     )
-    contact_method = models.CharField(max_length=20, choices=CONTACT_METHOD_CHOICES, default=PHONE)
+    contact_method = models.CharField(
+        max_length=20,
+        choices=CONTACT_METHOD_CHOICES,
+        default=PHONE
+    )
     notes = models.TextField(blank=True, null=True)
     signed_up_date = models.DateField(blank=True, null=True)
 
