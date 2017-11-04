@@ -43,3 +43,13 @@ class Contact(models.Model):
             return f"{self.name} ({self.kind})"
         else:
             return f"{self.name}"
+
+class Volunteer(models.Model):
+
+    name = models.ForeignKey(Contact)
+    special_skills = models.TextField(blank=True, null=True)
+    ways_to_help = models.TextField(blank=True, null=True)
+    availability = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return f"{self.name}"
