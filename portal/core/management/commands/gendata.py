@@ -1,3 +1,5 @@
+# pylint: disable=too-many-locals
+
 import random
 from contextlib import suppress
 
@@ -9,17 +11,15 @@ from django.db.utils import IntegrityError
 
 from faker import Faker
 
-# from portal.contacts import models
+from portal.contacts.models import ContactType, Contact, Student, Volunteer
 
 
 User = get_user_model()
+fake = Faker()
 
 
 class Command(BaseCommand):
     help = "Generate data for automated testing and manual review"
-
-    fake = Faker()
-    new_user_id = None
 
     def add_arguments(self, parser):
         parser.add_argument(
@@ -32,7 +32,6 @@ class Command(BaseCommand):
     def handle(self, *, emails, **_options):
         self.update_site()
         admin = self.get_or_create_superuser()
-        self.new_user_id = self.get_or_create_user("newbie@example.com").id
         users = [self.get_or_create_user(email) for email in emails]
         self.generate_review_data(admin, *users)
 
@@ -72,18 +71,62 @@ class Command(BaseCommand):
 
         return user
 
-    def generate_review_data(self, *users):
-        count = User.objects.count()
-        while count < 50:
+    def generate_review_data(self, *_users):
+        while User.objects.count() < 10:
             with suppress(IntegrityError):
                 user = User.objects.create(
                     username=self.fake_username(),
                 )
                 self.stdout.write(f"Created user: {user}")
-                count += 1
 
-        # TODO: Create additional models here
-        print(users)
+        donor, _ = ContactType.objects.get_or_create(name="Donor")
+        staff, _ = ContactType.objects.get_or_create(name="Staff")
+        student, _ = ContactType.objects.get_or_create(name="Student")
+        volunter, _ = ContactType.objects.get_or_create(name="Volunteer")
+        people_kinds = [donor, staff, student, volunter]
+
+        business, _ = ContactType.objects.get_or_create(name="Business")
+        parter, _ = ContactType.objects.get_or_create(name="Community Partner")
+        company_kinds = [business, parter]
+
+        while Contact.objects.count() < 200:
+            if random.random() < .60:
+                kind = random.choice(people_kinds)
+                name = fake.name()
+                date_of_birth = fake.date()
+            else:
+                kind = random.choice(company_kinds)
+                name = fake.company()
+                date_of_birth = None
+
+            with suppress(IntegrityError):
+                obj = Contact.objects.create(
+                    kind=kind,
+                    name=name,
+                    street_address=fake.address(),
+                    city=fake.city(),
+                    state=fake.state(),
+                    zip_code=fake.postalcode(),
+                    phone_number=fake.phone_number(),
+                    email_address=fake.email(),
+                    date_of_birth=date_of_birth,
+                    signed_up_date=fake.date(),
+                )
+                self.stdout.write(f"Created contact: {obj}")
+
+        while Student.objects.count() < 10:
+            with suppress(IntegrityError):
+                obj = Student.objects.create(
+                    name=self.random_contact("Student"),
+                )
+                self.stdout.write(f"Created student: {obj}")
+
+        while Volunteer.objects.count() < 10:
+            with suppress(IntegrityError):
+                obj = Volunteer.objects.create(
+                    name=self.random_contact("Volunteer"),
+                )
+                self.stdout.write(f"Created volunteer: {obj}")
 
     def random_user(self, skip=None):
         skip_ids = [self.new_user_id]
@@ -91,5 +134,10 @@ class Command(BaseCommand):
             skip_ids.append(skip.id)
         return random.choice(User.objects.exclude(id__in=skip_ids))
 
-    def fake_username(self):
-        return self.fake.name().replace(' ', '').lower()
+    @staticmethod
+    def random_contact(kind_name):
+        return random.choice(Contact.objects.filter(kind__name=kind_name))
+
+    @staticmethod
+    def fake_username():
+        return fake.name().replace(' ', '').lower()

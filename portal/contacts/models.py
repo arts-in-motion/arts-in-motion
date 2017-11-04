@@ -19,9 +19,9 @@ class Contact(models.Model):
     name = models.CharField(max_length=100)
     street_address = models.CharField(max_length=100, blank=True, null=True)
     city = models.CharField(max_length=50, blank=True, null=True)
-    state = models.CharField(max_length=15, blank=True, null=True)
+    state = models.CharField(max_length=50, blank=True, null=True)
     zip_code = models.CharField(max_length=10, blank=True, null=True)
-    phone_number = models.CharField(max_length=15, blank=True, null=True)
+    phone_number = models.CharField(max_length=20, blank=True, null=True)
     email_address = models.EmailField(blank=True, null=True)
     date_of_birth = models.DateField(blank=True, null=True)
     PHONE = 'Phone'
@@ -48,7 +48,7 @@ class Contact(models.Model):
 
 class Student(models.Model):
 
-    name = models.ForeignKey(Contact, on_delete=models.CASCADE)
+    name = models.OneToOneField(Contact)
     # link to classes foreignkey
     classes = models.TextField(blank=True, null=True)
     strengths = models.TextField(blank=True, null=True)
@@ -67,7 +67,7 @@ class Student(models.Model):
 
 class Volunteer(models.Model):
 
-    name = models.ForeignKey(Contact)
+    name = models.OneToOneField(Contact)
     special_skills = models.TextField(blank=True, null=True)
     ways_to_help = models.TextField(blank=True, null=True)
     availability = models.TextField(blank=True, null=True)
