@@ -104,21 +104,21 @@ class Command(BaseCommand):
         while Student.objects.count() < 10:
             with suppress(IntegrityError):
                 obj = Student.objects.create(
-                    contact=self.random_contact("Student"),
+                    contact=self.random_contact(),
                 )
                 self.stdout.write(f"Created student: {obj}")
 
         while Volunteer.objects.count() < 10:
             with suppress(IntegrityError):
                 obj = Volunteer.objects.create(
-                    contact=self.random_contact("Volunteer"),
+                    contact=self.random_contact(),
                 )
                 self.stdout.write(f"Created volunteer: {obj}")
 
         while Donor.objects.count() < 10:
             with suppress(IntegrityError):
                 obj = Donor.objects.create(
-                    contact=self.random_contact("Donor"),
+                    contact=self.random_contact(),
                 )
                 self.stdout.write(f"Created donor: {obj}")
 
@@ -129,7 +129,7 @@ class Command(BaseCommand):
         return random.choice(User.objects.exclude(id__in=skip_ids))
 
     @staticmethod
-    def random_contact(kind_name):
+    def random_contact():
         return random.choice(Contact.objects.filter())
 
     @staticmethod
