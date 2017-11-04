@@ -21,8 +21,8 @@ class Form(models.Model):
         choices=FORM_TYPE_CHOICES,
         max_length=30
     )
+    notes = models.TextField(blank=True, null=True)
     is_filled = models.BooleanField()
-    notes = models.CharField(max_length=1000)
 
     date = models.DateField()
     last_edited = models.DateField(auto_now=True)

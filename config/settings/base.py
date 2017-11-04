@@ -23,6 +23,7 @@ INSTALLED_APPS = [
     'portal.events',
     'portal.donations',
     'portal.api',
+    'portal.time_tracker',
 
     'rest_framework',
     'rest_framework_swagger'
@@ -76,8 +77,8 @@ LOGGING = {
     },
     'loggers': {
         'django': {
-            'handlers':['console'],
-            'level':'INFO',
+            'handlers': ['console'],
+            'level': 'INFO',
         },
         'portal': {
             'handlers': ['console'],

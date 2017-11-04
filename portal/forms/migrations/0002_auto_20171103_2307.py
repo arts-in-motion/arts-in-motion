@@ -24,7 +24,8 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='form',
             name='formType',
-            field=models.CharField(choices=[('background_check', 'Background Check'), ('enrollment_form', 'Enrollment Form'), ('volunteer_form', 'Volunteer Form')], default='other', max_length=30),
+            field=models.CharField(choices=[('background_check', 'Background Check'), (
+                'enrollment_form', 'Enrollment Form'), ('volunteer_form', 'Volunteer Form')], default='other', max_length=30),
             preserve_default=False,
         ),
         migrations.AddField(
@@ -42,13 +43,14 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='form',
             name='notes',
-            field=models.CharField(default='', max_length=1000),
+            field=models.TextField(default='', max_length=1000),
             preserve_default=False,
         ),
         migrations.AddField(
             model_name='form',
             name='person',
-            field=models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, to='contacts.Person'),
+            field=models.ForeignKey(
+                default=1, on_delete=django.db.models.deletion.CASCADE, to='contacts.Person'),
             preserve_default=False,
         ),
     ]
