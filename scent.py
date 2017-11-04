@@ -36,12 +36,6 @@ def backend_files(path):
     return matches(path, 'py', 'ini') and 'system' not in path
 
 
-@select_runnable('frontend_targets')
-@file_validator
-def frontend_files(path):
-    return matches(path, 'clj', 'cljs')
-
-
 @select_runnable('system_targets')
 @file_validator
 def system_files(path):
@@ -56,19 +50,10 @@ def matches(path, *extensions):
 @runnable
 def backend_targets(*_args):
     return run("Backend", [
-        ("Unit Tests", "make test-backend-unit DISABLE_COVERAGE=true", True),
-        ("Integration Tests", "make test-backend-all", False),
-        ("Static Analysis", "make check-backend", True),
+        ("Unit Tests", "make test-unit DISABLE_COVERAGE=true", True),
+        ("Integration Tests", "make test-all", False),
+        ("Static Analysis", "make check", True),
     ])
-
-
-@runnable
-def frontend_targets(*_args):
-    return run("Frontend", [
-        ("Unit Tests", "make test-frontend-unit", True),
-        ("Static Analysis", "make check-frontend", True),
-    ])
-
 
 @runnable
 def system_targets(*_args):
@@ -76,7 +61,7 @@ def system_targets(*_args):
         return True
     return run("System", [
         ("Tests", "make test-system", False),
-        ("Static Analysis", "make check-backend", True),
+        ("Static Analysis", "make check", True),
     ])
 
 def run(name, targets):

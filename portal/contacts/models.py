@@ -1,7 +1,20 @@
 from django.db import models
 
 
-class Person(models.Model):
+class ContactType(models.Model):
+
+    name = models.CharField(max_length=100)
+
+    class Meta:
+        verbose_name_plural = "Contact Types"
+
+    def __str__(self):
+        return f"{self.name}"
+
+
+class Contact(models.Model):
+
+    kind = models.ForeignKey(ContactType, verbose_name="Type", null=True)
 
     name = models.CharField(max_length=100)
     street_address = models.CharField(max_length=100, blank=True, null=True)
@@ -26,11 +39,14 @@ class Person(models.Model):
     signed_up_date = models.DateField(blank=True, null=True)
 
     def __str__(self):
-        return f"{self.name}"
+        if self.kind:
+            return f"{self.name} ({self.kind})"
+        else:
+            return f"{self.name}"
 
 class Student(models.Model):
 
-    name = models.ForeignKey(Person, on_delete=models.CASCADE)
+    name = models.ForeignKey(Contact, on_delete=models.CASCADE)
     # link to classes foreignkey
     classes = models.TextField(blank=True, null=True)
     strengths = models.TextField(blank=True, null=True)
