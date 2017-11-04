@@ -16,7 +16,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Student',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True,
+                                        primary_key=True, serialize=False, verbose_name='ID')),
                 ('classes', models.TextField(blank=True, null=True)),
                 ('strengths', models.TextField(blank=True, null=True)),
                 ('health_concerns', models.TextField(blank=True, null=True)),
@@ -26,7 +27,8 @@ class Migration(migrations.Migration):
                 ('accepted_dance_liability', models.BooleanField(default=False)),
                 ('photo_release', models.BooleanField(default=False)),
                 ('notes', models.TextField(blank=True, null=True)),
-                ('name', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='contacts.Person')),
+                ('name', models.ForeignKey(
+                    on_delete=django.db.models.deletion.CASCADE, to='contacts.Contact')),
             ],
         ),
     ]
