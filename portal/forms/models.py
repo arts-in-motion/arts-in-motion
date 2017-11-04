@@ -1,5 +1,7 @@
 from django.db import models
 
+from portal.contacts.models import Contact
+
 
 class Form(models.Model):
     BACKGROUND_CHECK = "background_check"
@@ -16,7 +18,7 @@ class Form(models.Model):
     )
     name = models.CharField(max_length=100)
     person = models.name = models.ForeignKey(
-        'contacts.person', on_delete=models.CASCADE)
+        Contact, on_delete=models.CASCADE)
     form_type = models.CharField(
         choices=FORM_TYPE_CHOICES,
         max_length=30
