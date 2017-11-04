@@ -11,11 +11,11 @@ class ClassAdmin(admin.ModelAdmin):
     ]
 
     list_display = [
-        'name',
+        'description',
         'start_date',
     ]
 
     ordering = [
         '-start_date',
-        'name',
+        'description',
     ]
