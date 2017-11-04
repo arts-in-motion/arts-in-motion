@@ -15,8 +15,7 @@ SECRET_KEY = os.environ['SECRET_KEY']
 
 ALLOWED_HOSTS = [
     'localhost',
-    # TODO: Remove this line and add your custom domain
-    '.herokuapp.com',
+    '.artsinmotionstudio.org',
 ]
 
 ###############################################################################
