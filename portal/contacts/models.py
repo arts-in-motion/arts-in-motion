@@ -36,7 +36,7 @@ class Student(models.Model):
     strengths = models.TextField(blank=True, null=True)
     health_concerns = models.TextField(blank=True, null=True)
     accessibility_needs = models.TextField(blank=True, null=True)
-    food_allergies = models.CharField(max_length=100, blank=True, null=True)
+    food_allergies = models.TextField(blank=True, null=True)
     # todo link to forms
     needs_tuition_assistance = models.BooleanField(default=False)
     accepted_dance_liability = models.BooleanField(default=False)
