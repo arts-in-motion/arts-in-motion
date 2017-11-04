@@ -79,29 +79,16 @@ class Command(BaseCommand):
                 )
                 self.stdout.write(f"Created user: {user}")
 
-        donor, _ = ContactType.objects.get_or_create(name="Donor")
-        staff, _ = ContactType.objects.get_or_create(name="Staff")
-        student, _ = ContactType.objects.get_or_create(name="Student")
-        volunter, _ = ContactType.objects.get_or_create(name="Volunteer")
-        people_kinds = [donor, staff, student, volunter]
-
-        business, _ = ContactType.objects.get_or_create(name="Business")
-        parter, _ = ContactType.objects.get_or_create(name="Community Partner")
-        company_kinds = [business, parter]
-
         while Contact.objects.count() < 200:
             if random.random() < .60:
-                kind = random.choice(people_kinds)
                 name = fake.name()
                 date_of_birth = fake.date()
             else:
-                kind = random.choice(company_kinds)
                 name = fake.company()
                 date_of_birth = None
 
             with suppress(IntegrityError):
                 obj = Contact.objects.create(
-                    contact=kind,
                     name=name,
                     street_address=fake.address(),
                     city=fake.city(),
@@ -143,7 +130,7 @@ class Command(BaseCommand):
 
     @staticmethod
     def random_contact(kind_name):
-        return random.choice(Contact.objects.filter(kind__name=kind_name))
+        return random.choice(Contact.objects.filter())
 
     @staticmethod
     def fake_username():
