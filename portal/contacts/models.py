@@ -14,8 +14,6 @@ class ContactType(models.Model):
 
 class Contact(models.Model):
 
-    kind = models.ForeignKey(ContactType, verbose_name="Type", null=True)
-
     name = models.CharField(max_length=100)
     street_address = models.CharField(max_length=100, blank=True, null=True)
     city = models.CharField(max_length=50, blank=True, null=True)
@@ -40,10 +38,7 @@ class Contact(models.Model):
     emergency_contact = models.ForeignKey("self", blank=True, null=True)
 
     def __str__(self):
-        if self.kind:
-            return f"{self.name} ({self.kind})"
-        else:
-            return f"{self.name}"
+        return f"{self.name}"
 
 
 class Student(models.Model):

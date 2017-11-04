@@ -11,7 +11,7 @@ from django.db.utils import IntegrityError
 
 from faker import Faker
 
-from portal.contacts.models import (ContactType, Contact,
+from portal.contacts.models import (Contact,
                                     Student, Volunteer, Donor)
 
 User = get_user_model()
@@ -79,29 +79,16 @@ class Command(BaseCommand):
                 )
                 self.stdout.write(f"Created user: {user}")
 
-        donor, _ = ContactType.objects.get_or_create(name="Donor")
-        staff, _ = ContactType.objects.get_or_create(name="Staff")
-        student, _ = ContactType.objects.get_or_create(name="Student")
-        volunter, _ = ContactType.objects.get_or_create(name="Volunteer")
-        people_kinds = [donor, staff, student, volunter]
-
-        business, _ = ContactType.objects.get_or_create(name="Business")
-        parter, _ = ContactType.objects.get_or_create(name="Community Partner")
-        company_kinds = [business, parter]
-
         while Contact.objects.count() < 200:
             if random.random() < .60:
-                kind = random.choice(people_kinds)
                 name = fake.name()
                 date_of_birth = fake.date()
             else:
-                kind = random.choice(company_kinds)
                 name = fake.company()
                 date_of_birth = None
 
             with suppress(IntegrityError):
                 obj = Contact.objects.create(
-                    kind=kind,
                     name=name,
                     street_address=fake.address(),
                     city=fake.city(),
@@ -117,21 +104,21 @@ class Command(BaseCommand):
         while Student.objects.count() < 10:
             with suppress(IntegrityError):
                 obj = Student.objects.create(
-                    contact=self.random_contact("Student"),
+                    contact=self.random_contact(),
                 )
                 self.stdout.write(f"Created student: {obj}")
 
         while Volunteer.objects.count() < 10:
             with suppress(IntegrityError):
                 obj = Volunteer.objects.create(
-                    contact=self.random_contact("Volunteer"),
+                    contact=self.random_contact(),
                 )
                 self.stdout.write(f"Created volunteer: {obj}")
 
         while Donor.objects.count() < 10:
             with suppress(IntegrityError):
                 obj = Donor.objects.create(
-                    contact=self.random_contact("Donor"),
+                    contact=self.random_contact(),
                 )
                 self.stdout.write(f"Created donor: {obj}")
 
@@ -142,8 +129,8 @@ class Command(BaseCommand):
         return random.choice(User.objects.exclude(id__in=skip_ids))
 
     @staticmethod
-    def random_contact(kind_name):
-        return random.choice(Contact.objects.filter(kind__name=kind_name))
+    def random_contact():
+        return random.choice(Contact.objects.filter())
 
     @staticmethod
     def fake_username():
