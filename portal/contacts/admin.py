@@ -79,7 +79,6 @@ class VolunteerAdmin(admin.ModelAdmin):
         'contact__name',
     ]
 
-
     @staticmethod
     def _name(volunteer):
         return volunteer.contact.name
