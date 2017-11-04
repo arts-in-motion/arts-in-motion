@@ -3,8 +3,8 @@ from django.contrib import admin
 from . import models
 
 
-@admin.register(models.TimeTracker)
-class TimeTrackerForm(admin.ModelAdmin):
+@admin.register(models.Record)
+class RecordForm(admin.ModelAdmin):
 
     search_fields = [
         'person'

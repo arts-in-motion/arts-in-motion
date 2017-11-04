@@ -22,7 +22,7 @@ class Form(models.Model):
         max_length=30
     )
     isFilled = models.BooleanField()
-    notes = models.CharField(max_length=1000)
+    notes = models.TextField(blank=True, null=True)
 
     date = models.DateField()
     # TODO make this set auto based on edit
