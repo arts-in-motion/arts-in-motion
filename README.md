@@ -24,7 +24,7 @@ $ make doctor
 Create a database:
 
 ```sh
-$ createdb portal_dev
+$ createdb artsinmotion_dev
 ```
 
 Install project dependencies:

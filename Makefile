@@ -26,7 +26,7 @@ doctor: ## Check for required system dependencies
 
 .envrc:
 	echo export SECRET_KEY=local >> $@
-	echo export DATABASE_URL=postgresql://localhost/portal_dev >> $@
+	echo export DATABASE_URL=postgresql://localhost/artsinmotion_dev >> $@
 	echo >> $@
 	echo export TEST_EMAILS=you@yourdomain.com >> $@
 	direnv allow
@@ -74,8 +74,8 @@ data: install migrate ## Database | Seed data for manual testing
 
 .PHONY: reset
 reset: install ## Database | Create a new database, migrate, and seed it
-	- dropdb portal_dev
-	- createdb portal_dev
+	- dropdb artsinmotion_dev
+	- createdb artsinmotion_dev
 	make data
 
 # VALIDATION TARGETS ##########################################################

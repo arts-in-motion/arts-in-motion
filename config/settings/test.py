@@ -19,7 +19,7 @@ LOGGING['loggers']['portal']['level'] = 'DEBUG'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'portal_test',
+        'NAME': 'artsinmotion_test',
         'HOST': '127.0.0.1',
     }
 }

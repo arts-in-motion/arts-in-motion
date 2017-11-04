@@ -23,7 +23,7 @@ ALLOWED_HOSTS = [
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'portal_dev',
+        'NAME': 'artsinmotion_dev',
         'HOST': '127.0.0.1',
     },
     'remote': dj_database_url.config(),
