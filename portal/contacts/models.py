@@ -37,6 +37,7 @@ class Contact(models.Model):
     )
     notes = models.TextField(blank=True, null=True)
     signed_up_date = models.DateField(blank=True, null=True)
+    emergency_contact = models.ForeignKey("self", blank=True, null=True)
 
     def __str__(self):
         if self.kind:
