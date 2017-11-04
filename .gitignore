@@ -16,3 +16,6 @@ __pycache__/
 
 # Collected static files
 /staticfiles/
+
+.DS_Store
+.idea

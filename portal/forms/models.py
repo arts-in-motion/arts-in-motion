@@ -1,5 +1,7 @@
 from django.db import models
 
+from portal.contacts.models import Contact
+
 
 class Form(models.Model):
     BACKGROUND_CHECK = "background_check"
@@ -16,13 +18,13 @@ class Form(models.Model):
     )
     name = models.CharField(max_length=100)
     person = models.name = models.ForeignKey(
-        'contacts.person', on_delete=models.CASCADE)
+        Contact, on_delete=models.CASCADE)
     form_type = models.CharField(
         choices=FORM_TYPE_CHOICES,
         max_length=30
     )
+    notes = models.TextField(blank=True, null=True)
     is_filled = models.BooleanField()
-    notes = models.CharField(max_length=1000)
 
     date = models.DateField()
     last_edited = models.DateField(auto_now=True)
