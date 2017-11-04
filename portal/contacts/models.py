@@ -17,9 +17,9 @@ class Contact(models.Model):
     name = models.CharField(max_length=100)
     street_address = models.CharField(max_length=100, blank=True, null=True)
     city = models.CharField(max_length=50, blank=True, null=True)
-    state = models.CharField(max_length=15, blank=True, null=True)
+    state = models.CharField(max_length=50, blank=True, null=True)
     zip_code = models.CharField(max_length=10, blank=True, null=True)
-    phone_number = models.CharField(max_length=15, blank=True, null=True)
+    phone_number = models.CharField(max_length=20, blank=True, null=True)
     email_address = models.EmailField(blank=True, null=True)
     date_of_birth = models.DateField(blank=True, null=True)
     PHONE = 'Phone'
@@ -43,7 +43,8 @@ class Contact(models.Model):
 
 class Student(models.Model):
 
-    name = models.ForeignKey(Contact, on_delete=models.CASCADE)
+    contact = models.OneToOneField(Contact)
+
     # link to classes foreignkey
     classes = models.TextField(blank=True, null=True)
     strengths = models.TextField(blank=True, null=True)
@@ -57,15 +58,77 @@ class Student(models.Model):
     notes = models.TextField(blank=True, null=True)
 
     def __str__(self):
-        return f"{self.name}"
+        return f"{self.contact}"
 
 
 class Volunteer(models.Model):
 
-    name = models.ForeignKey(Contact)
+    contact = models.OneToOneField(Contact)
+
     special_skills = models.TextField(blank=True, null=True)
     ways_to_help = models.TextField(blank=True, null=True)
     availability = models.TextField(blank=True, null=True)
 
     def __str__(self):
-        return f"{self.name}"
+        return f"{self.contact}"
+
+
+class CommunicationRecord(models.Model):
+
+    internal_contact = models.ForeignKey(
+        Contact,
+        related_name="internal_contact"
+    )
+    external_contact = models.ForeignKey(Contact)
+    date_of_communication = models.DateTimeField(auto_now=True)
+    # follow_up = models.DateTimeField()
+    notes = models.TextField(blank=True, null=True)
+
+
+class Donor(models.Model):
+
+    contact = models.ForeignKey(Contact)
+
+    INDIVIDUAL = 'Individual'
+    ORGANIZATION = 'Organization'
+    DONOR_TYPE_CHOICES = (
+        (INDIVIDUAL, 'Individual'),
+        (ORGANIZATION, 'Organization')
+    )
+    donor_type = models.CharField(
+        max_length=30,
+        choices=DONOR_TYPE_CHOICES,
+        default=INDIVIDUAL
+    )
+    organization = models.CharField(max_length=100, blank=True, null=True)
+    billing_contact = models.CharField(max_length=100, blank=True, null=True)
+    billing_street_address = models.CharField(
+        max_length=100,
+        blank=True,
+        null=True
+    )
+    billing_city = models.CharField(max_length=100, blank=True, null=True)
+    billing_state = models.CharField(max_length=100, blank=True, null=True)
+    billing_zip = models.CharField(max_length=100, blank=True, null=True)
+    url = models.CharField(max_length=100, blank=True, null=True)
+    facebook = models.CharField(max_length=100, blank=True, null=True)
+    twitter = models.CharField(max_length=100, blank=True, null=True)
+    instagram = models.CharField(max_length=100, blank=True, null=True)
+    WEEKLY = 'Weekly'
+    MONTHLY = 'Monthly'
+    YEARLY = 'Yearly'
+    DONATION_FREQUENCY_CHOICES = (
+        (WEEKLY, 'Weekly'),
+        (MONTHLY, 'Monthly'),
+        (YEARLY, 'Yearly')
+    )
+    frequency_of_giving = models.CharField(
+        max_length=20,
+        choices=DONATION_FREQUENCY_CHOICES,
+        default=YEARLY
+    )
+    motivation = models.TextField(blank=True, null=True)
+    notes = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return f"{self.contact}"
