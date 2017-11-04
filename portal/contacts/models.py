@@ -1,7 +1,20 @@
 from django.db import models
 
 
-class Person(models.Model):
+class ContactType(models.Model):
+
+    name = models.CharField(max_length=100)
+
+    class Meta:
+        verbose_name_plural = "Contact Types"
+
+    def __str__(self):
+        return f"{self.name}"
+
+
+class Contact(models.Model):
+
+    kind = models.ForeignKey(ContactType, verbose_name="Type", null=True)
 
     name = models.CharField(max_length=100)
     street_address = models.CharField(max_length=100, blank=True, null=True)
