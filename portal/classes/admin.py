@@ -19,3 +19,7 @@ class ClassAdmin(admin.ModelAdmin):
         '-start_date',
         'description',
     ]
+
+    raw_id_fields = [
+        'instructor',
+    ]
