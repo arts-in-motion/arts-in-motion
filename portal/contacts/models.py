@@ -78,7 +78,10 @@ class Volunteer(models.Model):
 
 class CommunicationRecord(models.Model):
 
-    internal_contact = models.ForeignKey(Contact, related_name="internal_contact")
+    internal_contact = models.ForeignKey(
+        Contact,
+        related_name="internal_contact"
+    )
     external_contact = models.ForeignKey(Contact)
     date_of_communication = models.DateTimeField(auto_now=True)
     # follow_up = models.DateTimeField()
@@ -93,11 +96,19 @@ class Donor(models.Model):
         (INDIVIDUAL, 'Individual'),
         (ORGANIZATION, 'Organization')
     )
-    donor_type = models.CharField(max_length=30, choices=DONOR_TYPE_CHOICES, default=INDIVIDUAL)
+    donor_type = models.CharField(
+        max_length=30,
+        choices=DONOR_TYPE_CHOICES,
+        default=INDIVIDUAL
+    )
     contact = models.ForeignKey(Contact)
     organization = models.CharField(max_length=100, blank=True, null=True)
     billing_contact = models.CharField(max_length=100, blank=True, null=True)
-    billing_street_address = models.CharField(max_length=100, blank=True, null=True)
+    billing_street_address = models.CharField(
+        max_length=100,
+        blank=True,
+        null=True
+    )
     billing_city = models.CharField(max_length=100, blank=True, null=True)
     billing_state = models.CharField(max_length=100, blank=True, null=True)
     billing_zip = models.CharField(max_length=100, blank=True, null=True)
