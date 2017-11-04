@@ -96,7 +96,12 @@ class Volunteer(models.Model):
         (TECHNICAL_SUPPORT, 'Technical Support'),
         (OTHER, 'Other')
     )
-    ways_to_help = models.CharField(max_length=50,choices=WAYS_TO_HELP_CHOICES, blank=True, null=True)
+    ways_to_help = models.CharField(
+        max_length=50,
+        choices=WAYS_TO_HELP_CHOICES,
+        blank=True,
+        null=True
+    )
     availability = models.TextField(blank=True, null=True)
     FRIEND = 'From a Friend'
     POSTED_NOTICE = 'Posted Notice'
@@ -108,7 +113,12 @@ class Volunteer(models.Model):
         (NEWSLETTER, 'Newsletter'),
         (OTHER, 'Other')
     )
-    referral = models.CharField(max_length=40, choices=REFERRAL_CHOICES, blank=True, null=True)
+    referral = models.CharField(
+        max_length=40,
+        choices=REFERRAL_CHOICES,
+        blank=True,
+        null=True
+    )
 
     def __str__(self):
         return f"{self.contact}"
