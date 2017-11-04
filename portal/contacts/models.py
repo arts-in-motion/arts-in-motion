@@ -74,3 +74,63 @@ class Volunteer(models.Model):
 
     def __str__(self):
         return f"{self.name}"
+
+
+class CommunicationRecord(models.Model):
+
+    internal_contact = models.ForeignKey(
+        Contact,
+        related_name="internal_contact"
+    )
+    external_contact = models.ForeignKey(Contact)
+    date_of_communication = models.DateTimeField(auto_now=True)
+    # follow_up = models.DateTimeField()
+    notes = models.TextField(blank=True, null=True)
+
+
+class Donor(models.Model):
+
+    INDIVIDUAL = 'Individual'
+    ORGANIZATION = 'Organization'
+    DONOR_TYPE_CHOICES = (
+        (INDIVIDUAL, 'Individual'),
+        (ORGANIZATION, 'Organization')
+    )
+    donor_type = models.CharField(
+        max_length=30,
+        choices=DONOR_TYPE_CHOICES,
+        default=INDIVIDUAL
+    )
+    contact = models.ForeignKey(Contact)
+    organization = models.CharField(max_length=100, blank=True, null=True)
+    billing_contact = models.CharField(max_length=100, blank=True, null=True)
+    billing_street_address = models.CharField(
+        max_length=100,
+        blank=True,
+        null=True
+    )
+    billing_city = models.CharField(max_length=100, blank=True, null=True)
+    billing_state = models.CharField(max_length=100, blank=True, null=True)
+    billing_zip = models.CharField(max_length=100, blank=True, null=True)
+    url = models.CharField(max_length=100, blank=True, null=True)
+    facebook = models.CharField(max_length=100, blank=True, null=True)
+    twitter = models.CharField(max_length=100, blank=True, null=True)
+    instagram = models.CharField(max_length=100, blank=True, null=True)
+    WEEKLY = 'Weekly'
+    MONTHLY = 'Monthly'
+    YEARLY = 'Yearly'
+    DONATION_FREQUENCY_CHOICES = (
+        (WEEKLY, 'Weekly'),
+        (MONTHLY, 'Monthly'),
+        (YEARLY, 'Yearly')
+    )
+    frequency_of_giving = models.CharField(
+        max_length=20,
+        choices=DONATION_FREQUENCY_CHOICES,
+        default=YEARLY
+    )
+    motivation = models.TextField(blank=True, null=True)
+    notes = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return f"{self.contact}"
