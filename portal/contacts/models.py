@@ -48,7 +48,8 @@ class Contact(models.Model):
 
 class Student(models.Model):
 
-    name = models.OneToOneField(Contact)
+    contact = models.OneToOneField(Contact)
+
     # link to classes foreignkey
     classes = models.TextField(blank=True, null=True)
     strengths = models.TextField(blank=True, null=True)
@@ -67,7 +68,8 @@ class Student(models.Model):
 
 class Volunteer(models.Model):
 
-    name = models.OneToOneField(Contact)
+    contact = models.OneToOneField(Contact)
+
     special_skills = models.TextField(blank=True, null=True)
     ways_to_help = models.TextField(blank=True, null=True)
     availability = models.TextField(blank=True, null=True)
@@ -90,6 +92,8 @@ class CommunicationRecord(models.Model):
 
 class Donor(models.Model):
 
+    contact = models.ForeignKey(Contact)
+
     INDIVIDUAL = 'Individual'
     ORGANIZATION = 'Organization'
     DONOR_TYPE_CHOICES = (
@@ -101,7 +105,6 @@ class Donor(models.Model):
         choices=DONOR_TYPE_CHOICES,
         default=INDIVIDUAL
     )
-    contact = models.ForeignKey(Contact)
     organization = models.CharField(max_length=100, blank=True, null=True)
     billing_contact = models.CharField(max_length=100, blank=True, null=True)
     billing_street_address = models.CharField(

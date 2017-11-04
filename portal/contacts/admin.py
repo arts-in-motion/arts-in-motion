@@ -46,7 +46,7 @@ class ContactTypeAdmin(admin.ModelAdmin):
 class StudentAdmin(admin.ModelAdmin):
 
     search_fields = [
-        'name__name',
+        'contact__name',
     ]
 
     list_display = [
@@ -55,19 +55,19 @@ class StudentAdmin(admin.ModelAdmin):
     ]
 
     ordering = [
-        'name__name',
+        'contact__name',
     ]
 
     @staticmethod
     def _name(student):
-        return student.name.name
+        return student.contact.name
 
 
 @admin.register(models.Volunteer)
 class VolunteerAdmin(admin.ModelAdmin):
 
     search_fields = [
-        'name__name',
+        'contact__name',
     ]
 
     list_display = [
@@ -76,9 +76,31 @@ class VolunteerAdmin(admin.ModelAdmin):
     ]
 
     ordering = [
-        'name__name',
+        'contact__name',
     ]
+
 
     @staticmethod
     def _name(volunteer):
-        return volunteer.name.name
+        return volunteer.contact.name
+
+
+@admin.register(models.Donor)
+class DonorAdmin(admin.ModelAdmin):
+
+    search_fields = [
+        'contact__name',
+    ]
+
+    list_display = [
+        '_name',
+        'donor_type',
+    ]
+
+    ordering = [
+        'contact__name',
+    ]
+
+    @staticmethod
+    def _name(donor):
+        return donor.contact.name
