@@ -41,7 +41,7 @@ ifndef SKIP_INSTALL
 install: $(BACKEND_DEPENDENCIES) $(FRONTEND_DEPENDENCIES) ## Install project dependencies
 endif
 
-$(BACKEND_DEPENDENCIES):
+$(BACKEND_DEPENDENCIES): Pipfile
 	mkdir -p tmp
 	pipenv install --dev
 	@ touch $@
