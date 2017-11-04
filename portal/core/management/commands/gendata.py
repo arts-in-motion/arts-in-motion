@@ -11,7 +11,7 @@ from django.db.utils import IntegrityError
 
 from faker import Faker
 
-from portal.contacts.models import (ContactType, Contact,
+from portal.contacts.models import (Contact,
                                     Student, Volunteer, Donor)
 
 User = get_user_model()
