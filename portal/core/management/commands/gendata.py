@@ -1,3 +1,5 @@
+# pylint: disable=too-many-locals
+
 import random
 from contextlib import suppress
 
@@ -9,7 +11,7 @@ from django.db.utils import IntegrityError
 
 from faker import Faker
 
-# from portal.contacts import models
+from portal.contacts.models import ContactType, Contact
 
 
 User = get_user_model()
@@ -72,18 +74,48 @@ class Command(BaseCommand):
 
         return user
 
-    def generate_review_data(self, *users):
-        count = User.objects.count()
-        while count < 50:
+    def generate_review_data(self, *_users):
+        while User.objects.count() < 10:
             with suppress(IntegrityError):
                 user = User.objects.create(
                     username=self.fake_username(),
                 )
                 self.stdout.write(f"Created user: {user}")
-                count += 1
 
-        # TODO: Create additional models here
-        print(users)
+        donor, _ = ContactType.objects.get_or_create(name="Donor")
+        staff, _ = ContactType.objects.get_or_create(name="Staff")
+        student, _ = ContactType.objects.get_or_create(name="Student")
+        volunter, _ = ContactType.objects.get_or_create(name="Volunteer")
+        people_kinds = [donor, staff, student, volunter]
+
+        business, _ = ContactType.objects.get_or_create(name="Business")
+        parter, _ = ContactType.objects.get_or_create(name="Community Partner")
+        company_kinds = [business, parter]
+
+        while Contact.objects.count() < 200:
+            if random.random() < .60:
+                kind = random.choice(people_kinds)
+                name = self.fake.name()
+                date_of_birth = self.fake.date()
+            else:
+                kind = random.choice(company_kinds)
+                name = self.fake.company()
+                date_of_birth = None
+
+            with suppress(IntegrityError):
+                contact = Contact.objects.create(
+                    kind=kind,
+                    name=name,
+                    street_address=self.fake.address(),
+                    city=self.fake.city(),
+                    state=self.fake.state(),
+                    zip_code=self.fake.postalcode(),
+                    phone_number=self.fake.phone_number(),
+                    email_address=self.fake.email(),
+                    date_of_birth=date_of_birth,
+                    signed_up_date=self.fake.date(),
+                )
+                self.stdout.write(f"Created contact: {contact}")
 
     def random_user(self, skip=None):
         skip_ids = [self.new_user_id]
@@ -93,3 +125,6 @@ class Command(BaseCommand):
 
     def fake_username(self):
         return self.fake.name().replace(' ', '').lower()
+
+    def fake_name(self):
+        return self.fake.name()
