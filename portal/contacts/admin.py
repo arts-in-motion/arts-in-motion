@@ -86,8 +86,42 @@ class DonorInline(SingleInline):
     verbose_name = "Donor Info"
 
 
-@admin.register(models.Contact)
-class ContactAdmin(admin.ModelAdmin):
+class IndividualDonorInline(DonorInline):
+    exclude = ['organization']
+
+
+class OrganizationDonorInline(DonorInline):
+    exclude = ['individual']
+
+
+@admin.register(models.Individual)
+class IndividualAdmin(admin.ModelAdmin):
+
+    search_fields = [
+        'name',
+        'email_address',
+    ]
+
+    list_display = [
+        'name',
+        'phone_number',
+        'email_address',
+    ]
+
+    ordering = [
+        'first_name',
+        'last_name',
+    ]
+
+    inlines = [
+        StudentInline,
+        VolunteerInline,
+        IndividualDonorInline,
+    ]
+
+
+@admin.register(models.Organization)
+class OrganizationAdmin(admin.ModelAdmin):
 
     search_fields = [
         'name',
@@ -104,4 +138,6 @@ class ContactAdmin(admin.ModelAdmin):
         'name',
     ]
 
-    inlines = [StudentInline, VolunteerInline, DonorInline]
+    inlines = [
+        OrganizationDonorInline,
+    ]

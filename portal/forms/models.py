@@ -1,6 +1,6 @@
 from django.db import models
 
-from portal.contacts.models import Contact
+from portal.contacts.models import Individual
 
 
 class Form(models.Model):
@@ -17,8 +17,7 @@ class Form(models.Model):
 
     )
     name = models.CharField(max_length=100)
-    person = models.name = models.ForeignKey(
-        Contact, on_delete=models.CASCADE)
+    person = models.name = models.ForeignKey(Individual)
     form_type = models.CharField(
         choices=FORM_TYPE_CHOICES,
         max_length=30
