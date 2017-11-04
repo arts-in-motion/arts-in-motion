@@ -46,7 +46,7 @@ class ContactTypeAdmin(admin.ModelAdmin):
 class StudentAdmin(admin.ModelAdmin):
 
     search_fields = [
-        'name',
+        'name__name',
     ]
 
     list_display = [
@@ -55,7 +55,7 @@ class StudentAdmin(admin.ModelAdmin):
     ]
 
     ordering = [
-        'name',
+        'name__name',
     ]
 
     @staticmethod
@@ -67,7 +67,7 @@ class StudentAdmin(admin.ModelAdmin):
 class VolunteerAdmin(admin.ModelAdmin):
 
     search_fields = [
-        'name',
+        'name__name',
     ]
 
     list_display = [
@@ -76,7 +76,7 @@ class VolunteerAdmin(admin.ModelAdmin):
     ]
 
     ordering = [
-        'name',
+        'name__name',
     ]
 
     @staticmethod
