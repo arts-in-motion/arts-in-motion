@@ -88,24 +88,6 @@ LOGGING = {
 SITE_ID = 1
 
 ###############################################################################
-# Auth
-
-AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
-]
-
-###############################################################################
 # Sessions
 
 SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
