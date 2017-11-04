@@ -7,4 +7,3 @@ class Event(models.Model):
     date = models.DateField()
     location = models.TextField(blank=True, null=True)
     notes = models.TextField(blank=True, null=True)
-
