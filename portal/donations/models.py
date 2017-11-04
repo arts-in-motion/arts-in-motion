@@ -7,7 +7,7 @@ from portal.events.models import Event
 class Donation(models.Model):
 
     donor = models.ForeignKey(Donor)
-    amount = models.CharField(max_length=100)
+    amount = models.DecimalField(max_digits=7, decimal_places=2)
     date = models.DateField()
     INKIND = 'In Kind'
     CASH = 'Cash'
