@@ -9,7 +9,7 @@ from django.db.utils import IntegrityError
 
 from faker import Faker
 
-# from portal.donors import models
+# from portal.contacts import models
 
 
 User = get_user_model()

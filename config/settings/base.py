@@ -18,7 +18,10 @@ INSTALLED_APPS = [
     'django.contrib.sites',
 
     'portal.core',
-    'portal.donors',
+    'portal.contacts',
+    'portal.forms',
+    'portal.events',
+    'portal.donations',
     'portal.api',
 
     'allauth',
