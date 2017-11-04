@@ -24,8 +24,6 @@ INSTALLED_APPS = [
     'portal.donations',
     'portal.api',
 
-    'allauth',
-    'allauth.account',
     'rest_framework',
     'rest_framework_swagger'
 ]

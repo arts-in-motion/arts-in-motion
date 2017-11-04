@@ -26,4 +26,4 @@ class Person(models.Model):
     signed_up_date = models.DateField(blank=True, null=True)
 
     def __str__(self):
-        return self.name
+        return f"{self.name}"

@@ -1,4 +1,4 @@
-[![Waffle.io - Columns and their card count](https://badge.waffle.io/arts-in-motion/arts-in-motion.png?columns=all)](https://waffle.io/arts-in-motion/arts-in-motion?utm_source=badge)
+[![Waffle.io - Columns and their card count](https://badge.waffle.io/arts-in-motion/arts-in-motion.png?columns=backlog,current,review)](https://waffle.io/arts-in-motion/arts-in-motion?utm_source=badge)
 [![CircleCI](https://circleci.com/gh/arts-in-motion/arts-in-motion.svg?style=svg)](https://circleci.com/gh/arts-in-motion/arts-in-motion)
 
 # Overview
