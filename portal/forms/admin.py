@@ -17,11 +17,11 @@ class PersonForm(admin.ModelAdmin):
     ordering = [
         'person',
     ]
-    fields=("person", "date", "form_type", "is_filled", "notes")
+    fields = ("person", "date", "form_type", "is_filled", "notes")
 
 @admin.register(models.FormType)
 class FormType(admin.ModelAdmin):
 
-	list_display = [
-		'name',
+    list_display = [
+	    'name',
 	]

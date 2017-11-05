@@ -17,4 +17,4 @@ class RecordForm(admin.ModelAdmin):
     ordering = [
         'person'
     ]
-    fields=("person", "date", "hours", "notes")
+    fields = ("person", "date", "hours", "notes")

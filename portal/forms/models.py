@@ -20,5 +20,3 @@ class Form(models.Model):
 
     date = models.DateField()
     last_edited = models.DateField(auto_now=True)
-
-
