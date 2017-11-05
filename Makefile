@@ -119,7 +119,7 @@ test-system: install
 # SERVER TARGETS ##############################################################
 
 .PHONY: run
-run: .envrc install ## Run the applicaiton
+run: install ## Run the applicaiton
 	$(RUN) python manage.py runserver
 
 .PHONY: run-prod
