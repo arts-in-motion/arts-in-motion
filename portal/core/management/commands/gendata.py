@@ -100,6 +100,7 @@ class Command(BaseCommand):
                     email_address=fake.email(),
                     date_of_birth=fake.date(),
                     signed_up_date=fake.date(),
+                    is_artist=True if p(.05) else False,
                 )
                 self.stdout.write(f"Created individual: {obj}")
 
@@ -146,7 +147,7 @@ class Command(BaseCommand):
         while Class.objects.count() < 200:
             with suppress(IntegrityError):
                 obj = Class.objects.create(
-                    description=fake.text(100),
+                    description=fake.text(50),
                     instructor=self.random_individual(),
                     start_date=fake.date(),
                     end_date=fake.date() if p(0.3) else None,

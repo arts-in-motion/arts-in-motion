@@ -8,52 +8,12 @@ class SingleInline(admin.StackedInline):
     extra = 0
 
 
-# @admin.register(models.Student)
-# class StudentAdmin(admin.ModelAdmin):
-
-#     search_fields = [
-#         'contact__name',
-#     ]
-
-#     list_display = [
-#         '_name',
-#         'classes',
-#     ]
-
-#     ordering = [
-#         'contact__name',
-#     ]
-
-#     @staticmethod
-#     def _name(student):
-#         return student.contact.n
-
-
 class StudentInline(SingleInline):
     model = models.Student
     fk_name = 'individual'
     verbose_name = "Student Info"
 
-
-# @admin.register(models.Volunteer)
-# class VolunteerAdmin(admin.ModelAdmin):
-
-#     search_fields = [
-#         'contact__name',
-#     ]
-
-#     list_display = [
-#         '_name',
-#         'availability',
-#     ]
-
-#     ordering = [
-#         'contact__name',
-#     ]
-
-#     @staticmethod
-#     def _name(volunteer):
-#         return volunteer.contact.name
+    filter_horizontal = ['classes']
 
 
 class VolunteerInline(SingleInline):
@@ -61,26 +21,7 @@ class VolunteerInline(SingleInline):
     fk_name = 'individual'
     verbose_name = "Volunteer Info"
 
-
-# @admin.register(models.Donor)
-# class DonorAdmin(admin.ModelAdmin):
-
-#     search_fields = [
-#         'contact__name',
-#     ]
-
-#     list_display = [
-#         '_name',
-#         'donor_type',
-#     ]
-
-#     ordering = [
-#         'contact__name',
-#     ]
-
-#     @staticmethod
-#     def _name(donor):
-#         return donor.contact.name
+    filter_horizontal = ['events']
 
 
 class DonorInline(SingleInline):
@@ -126,7 +67,8 @@ class IndividualAdmin(admin.ModelAdmin):
     list_filter = [
         'is_donor',
         'is_student',
-        'is_volunteer'
+        'is_volunteer',
+        'is_artist',
     ]
 
     @staticmethod
@@ -138,6 +80,8 @@ class IndividualAdmin(admin.ModelAdmin):
             categories.append('Student')
         if individual.is_volunteer:
             categories.append('Volunteer')
+        if individual.is_artist:
+            categories.append('Artist')
         return ' / '.join(categories) if categories else None
 
 
@@ -162,6 +106,21 @@ class OrganizationAdmin(admin.ModelAdmin):
     inlines = [
         OrganizationDonorInline,
     ]
+
+
+@admin.register(models.Donor)
+class DonorAdmin(admin.ModelAdmin):
+
+    search_fields = [
+        'individual__first_name',
+        'individual__last_name',
+        'organization__name',
+    ]
+
+    @staticmethod
+    def get_model_perms(_request):
+        """Hide this model, but make it available for search."""
+        return {}
 
 
 admin.site.register(models.Guardian)

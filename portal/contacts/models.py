@@ -43,6 +43,7 @@ class Individual(ContactInfo):
     is_student = models.BooleanField(default=False, verbose_name="Student?")
     is_volunteer = models.BooleanField(
         default=False, verbose_name="Volunteer?")
+    is_artist = models.BooleanField(default=False, verbose_name="Artist?")
 
     date_of_birth = models.DateField(blank=True, null=True)
 
@@ -109,7 +110,7 @@ class Student(models.Model):
         blank=True,
         null=True
     )
-    classes = models.ManyToManyField('classes.Class', blank=True, null=True)
+    classes = models.ManyToManyField('classes.Class')
     strengths = models.TextField(blank=True, null=True)
     health_concerns = models.TextField(blank=True, null=True)
     accessibility_needs = models.TextField(blank=True, null=True)
@@ -144,7 +145,7 @@ class Volunteer(models.Model):
         blank=True,
         null=True
     )
-    event = models.ManyToManyField(Event)
+    events = models.ManyToManyField(Event)
     special_skills = models.TextField(blank=True, null=True)
     FUNDRAISING = 'Fundraising'
     USHERING_STAFFING_EVENTS = 'Usering/Staffing Events'
