@@ -7,7 +7,11 @@ from . import models
 class DonationAdmin(admin.ModelAdmin):
 
     search_fields = [
-        'donor, event',
+        'donor__individual__first_name',
+        'donor__individual__last_name',
+        'donor__individual__email_address',
+        'donor__organization__name',
+        'event__name',
     ]
 
     list_display = [
