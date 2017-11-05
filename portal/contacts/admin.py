@@ -14,7 +14,18 @@ class StudentInline(SingleInline):
     verbose_name = "Student Info"
 
     filter_horizontal = ['classes']
-
+    fields = (
+        'individual',
+        'emergency_contact',
+        'guardian',
+        'classes',
+        'strengths',
+        'health_concerns',
+        'accessibility_needs',
+        'allergies',
+        ('needs_tuition_assistance', 'accepted_dance_liability', 'photo_release'),
+        'notes'
+    )
 
 class VolunteerInline(SingleInline):
     model = models.Volunteer
@@ -70,6 +81,26 @@ class IndividualAdmin(admin.ModelAdmin):
         'is_volunteer',
         'is_artist',
     ]
+
+
+    fields = (
+        'prefix',
+        'first_name',
+        'middle_name',
+        'last_name',
+        'suffix',
+        'date_of_birth',
+        ('is_donor', 'is_student', 'is_volunteer', 'is_artist'),
+        'street_address',
+        'city',
+        'state',
+        'zip_code',
+        'phone_number',
+        'email_address',
+        'contact_method',
+        'signed_up_date',
+        'notes'
+    )
 
     @staticmethod
     def _categories(individual):
