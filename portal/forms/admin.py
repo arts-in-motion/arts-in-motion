@@ -23,5 +23,5 @@ class PersonForm(admin.ModelAdmin):
 class FormType(admin.ModelAdmin):
 
     list_display = [
-	    'name',
-	]
+        'name',
+    ]
