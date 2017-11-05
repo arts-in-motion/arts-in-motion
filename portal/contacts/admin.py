@@ -165,4 +165,3 @@ class OrganizationAdmin(admin.ModelAdmin):
 
 
 admin.site.register(models.Guardian)
-
