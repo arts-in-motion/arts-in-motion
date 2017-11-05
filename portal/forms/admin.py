@@ -19,6 +19,7 @@ class PersonForm(admin.ModelAdmin):
     ]
     fields = ("person", "date", "form_type", "is_filled", "notes")
 
+
 @admin.register(models.FormType)
 class FormType(admin.ModelAdmin):
 
