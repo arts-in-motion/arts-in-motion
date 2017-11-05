@@ -163,5 +163,6 @@ class OrganizationAdmin(admin.ModelAdmin):
         OrganizationDonorInline,
     ]
 
+
 admin.site.register(models.Guardian)
 
