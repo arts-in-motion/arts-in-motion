@@ -39,6 +39,10 @@ class Individual(ContactInfo):
     middle_name = models.CharField(max_length=50, blank=True, null=True)
     last_name = models.CharField(max_length=50)
     suffix = models.CharField(max_length=10, blank=True, null=True)
+    is_donor = models.BooleanField(default=False, verbose_name="Is Donor")
+    is_student = models.BooleanField(default=False, verbose_name="Is Student")
+    is_volunteer = models.BooleanField(
+        default=False, verbose_name="Is Volunteer")
 
     date_of_birth = models.DateField(blank=True, null=True)
 
@@ -55,11 +59,12 @@ class Individual(ContactInfo):
 class Organization(ContactInfo):
 
     name = models.CharField(max_length=100)
+    is_donor = models.BooleanField(default=False)
 
 
 class Student(models.Model):
 
-    contact = models.OneToOneField(Individual)
+    individual = models.OneToOneField(Individual)
     emergency_contact = models.ForeignKey(
         Individual,
         related_name="student_emergency_contact",
@@ -79,13 +84,30 @@ class Student(models.Model):
     photo_release = models.BooleanField(default=False)
     notes = models.TextField(blank=True, null=True)
 
+    def save(self, **kwargs):
+        self.individual.is_student = True
+        self.individual.save()
+        super(Student, self).save(**kwargs)
+
+    def delete(self, **kwargs):
+        self.individual.is_student = False
+        self.individual.save()
+        super(Student, self).delete(**kwargs)
+
     def __str__(self):
-        return f"{self.contact}"
+        return f"{self.individual}"
 
 
 class Volunteer(models.Model):
 
-    contact = models.OneToOneField(Individual)
+    individual = models.OneToOneField(Individual)
+
+    emergency_contact = models.ForeignKey(
+        Individual,
+        related_name="volunteer_emergency_contact",
+        blank=True,
+        null=True
+    )
     event = models.ManyToManyField(Event)
     special_skills = models.TextField(blank=True, null=True)
     FUNDRAISING = 'Fundraising'
@@ -143,8 +165,18 @@ class Volunteer(models.Model):
         null=True
     )
 
+    def save(self, **kwargs):
+        self.individual.is_volunteer = True
+        self.individual.save()
+        super(Volunteer, self).save(**kwargs)
+
+    def delete(self, **kwargs):
+        self.individual.is_volunteer = False
+        self.individual.save()
+        super(Volunteer, self).delete(**kwargs)
+
     def __str__(self):
-        return f"{self.contact}"
+        return f"{self.individual}"
 
 
 class CommunicationRecord(models.Model):
@@ -198,6 +230,24 @@ class Donor(models.Model):
     )
     motivation = models.TextField(blank=True, null=True)
     notes = models.TextField(blank=True, null=True)
+
+    def save(self, **kwargs):
+        if self.individual:
+            self.individual.is_donor = True
+            self.individual.save()
+        elif self.organization:
+            self.organization.is_donor = True
+            self.organization.save()
+        super(Donor, self).save(**kwargs)
+
+    def delete(self, **kwargs):
+        if self.individual:
+            self.individual.is_donor = False
+            self.individual.save()
+        elif self.organization:
+            self.organization.is_donor = False
+            self.organization.save()
+        super(Donor, self).delete(**kwargs)
 
     def __str__(self):
         return f"{self.individual or self.organization}"

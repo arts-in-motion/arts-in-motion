@@ -120,14 +120,14 @@ class Command(BaseCommand):
         while Student.objects.count() < 100:
             with suppress(IntegrityError):
                 obj = Student.objects.create(
-                    contact=self.random_individual(),
+                    individual=self.random_individual(),
                 )
                 self.stdout.write(f"Created student: {obj}")
 
         while Volunteer.objects.count() < 100:
             with suppress(IntegrityError):
                 obj = Volunteer.objects.create(
-                    contact=self.random_individual(),
+                    individual=self.random_individual(),
                 )
                 self.stdout.write(f"Created volunteer: {obj}")
 
