@@ -67,7 +67,6 @@ class Command(BaseCommand):
                 zip_code='Zip',
                 phone_number='Number',
                 email_address='Email',
-                # TODO: Add contact person
             ),
             notes="Community Parter")
 
@@ -97,14 +96,8 @@ class Command(BaseCommand):
                 city='City',
                 state='State',
                 zip_code='ZIP',
-                # unknown='GUARDIAN First Name',
-                # unknown='GUARDIAN Last Name',
-                # TODO: Split up HOME/CELL
-                # phone_number='HOME/CELL'
-                email_address='EMAIL',
-                # unknown='EMERGENCY CONTACT /EMAIL'
-                # TODO: Split up and rename second HOME/CELL
-            ))
+            ),
+            is_student=True)
 
         self.parse_sheet(
             'volunteers', names, workbook, Individual,
@@ -119,8 +112,8 @@ class Command(BaseCommand):
                 zip_code='Zip',
                 phone_number='Phone',
                 email_address='Email',
-                # TODO: Identify these as volunteers
-            ))
+            ),
+            is_volunteer=True)
 
         if names:
             logging.warning(f"Unused sheets: {names}")
@@ -143,14 +136,19 @@ class Command(BaseCommand):
             kwargs = {k: data.pop(v) for k, v in id_map.items()}
             try:
                 obj, created = model.objects.get_or_create(**kwargs)
-            except IntegrityError as exc:
-                logging.error(exc)
+            except IntegrityError as exception:
+                logging.error(f"{sheet.title}: {exception}")
                 continue
 
             for key, value in attr_map.items():
                 setattr(obj, key, data.pop(value))
+
             for key, value in extra.items():
                 setattr(obj, key, value)
+
+            if data:
+                lines = [f"{key}: {value}" for key, value in data.items()]
+                obj.notes = '\n'.join(lines)
 
             obj.save()
 
@@ -158,7 +156,3 @@ class Command(BaseCommand):
                 self.stdout.write(f"Created {model.__name__}: {obj}")
             else:
                 logging.debug(f"Updated {model.__name__}: {obj}")
-
-        if data:
-            names = list(data.keys())
-            logging.warning(f"Unused columns in {sheet.title}: {names}")
