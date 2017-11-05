@@ -60,7 +60,11 @@ class Student(models.Model):
 
     contact = models.OneToOneField(Individual)
     emergency_contact = models.ForeignKey(
-        Individual, related_name="student_emergency_contact", blank=True, null=True)
+        Individual,
+        related_name="student_emergency_contact",
+        blank=True,
+        null=True
+    )
     #  todo fk guardian
     guardian = models.TextField(blank=True, null=True)
     classes = models.ManyToManyField('classes.Class', blank=True, null=True)
@@ -82,7 +86,11 @@ class Volunteer(models.Model):
 
     contact = models.OneToOneField(Individual)
     emergency_contact = models.ForeignKey(
-        Individual, related_name="volunteer_emergency_contact", blank=True, null=True)
+        Individual,
+        related_name="volunteer_emergency_contact",
+        blank=True,
+        null=True
+    )
     special_skills = models.TextField(blank=True, null=True)
     FUNDRAISING = 'Fundraising'
     USHERING_STAFFING_EVENTS = 'Usering/Staffing Events'
