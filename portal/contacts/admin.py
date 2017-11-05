@@ -91,9 +91,11 @@ class IndividualAdmin(admin.ModelAdmin):
 
     list_filter = [
         'is_donor',
+        'is_staff',
         'is_student',
         'is_volunteer',
         'is_artist',
+        'is_board',
     ]
 
     fields = (
@@ -103,7 +105,7 @@ class IndividualAdmin(admin.ModelAdmin):
         'last_name',
         'suffix',
         'date_of_birth',
-        ('is_donor', 'is_student', 'is_volunteer', 'is_artist'),
+        ('is_donor', 'is_staff', 'is_student', 'is_volunteer', 'is_artist', 'is_board'),
         'street_address',
         'city',
         'state',
@@ -120,12 +122,16 @@ class IndividualAdmin(admin.ModelAdmin):
         categories = []
         if individual.is_donor:
             categories.append('Donor')
+        if individual.is_staff:
+            categories.append('Staff')
         if individual.is_student:
             categories.append('Student')
         if individual.is_volunteer:
             categories.append('Volunteer')
         if individual.is_artist:
             categories.append('Artist')
+        if individual.is_board:
+            categories.append('Board Member')
         return ' / '.join(categories) if categories else None
 
 
