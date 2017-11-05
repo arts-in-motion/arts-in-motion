@@ -11,9 +11,14 @@ class ClassAdmin(admin.ModelAdmin):
     ]
 
     list_display = [
+        'id',
         'description',
         'instructor',
         'start_date',
+        'active',
+    ]
+    list_filter = [
+        'active',
     ]
 
     ordering = [

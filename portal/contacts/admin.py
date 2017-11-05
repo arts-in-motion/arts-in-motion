@@ -32,12 +32,21 @@ class StudentInline(SingleInline):
     )
 
 
+@admin.register(models.WaysToHelp)
+class WaysToHelpAdmin(admin.ModelAdmin):
+
+    @staticmethod
+    def get_model_perms(_request):
+        """Hide this model, but make it available for search."""
+        return {}
+
+
 class VolunteerInline(SingleInline):
     model = models.Volunteer
     fk_name = 'individual'
     verbose_name = "Volunteer Info"
 
-    filter_horizontal = ['events']
+    filter_horizontal = ['events', 'ways_to_help']
     fields = (
         "ways_to_help",
         "events",
@@ -72,6 +81,7 @@ class IndividualAdmin(admin.ModelAdmin):
     ]
 
     list_display = [
+        'id',
         'name',
         'phone_number',
         'email_address',
@@ -145,6 +155,7 @@ class OrganizationAdmin(admin.ModelAdmin):
     ]
 
     list_display = [
+        'id',
         'name',
         'phone_number',
         'email_address',
@@ -185,4 +196,10 @@ class DonorAdmin(admin.ModelAdmin):
         return {}
 
 
-admin.site.register(models.Guardian)
+@admin.register(models.Guardian)
+class GardianAdmin(admin.ModelAdmin):
+
+    @staticmethod
+    def get_model_perms(_request):
+        """Hide this model, but make it available for search."""
+        return {}
