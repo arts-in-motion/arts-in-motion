@@ -26,3 +26,7 @@ class FormType(admin.ModelAdmin):
     list_display = [
         'name',
     ]
+
+    raw_id_fields = [
+        'person',
+    ]

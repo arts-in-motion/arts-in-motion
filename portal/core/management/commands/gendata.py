@@ -84,7 +84,7 @@ class Command(BaseCommand):
                 )
                 self.stdout.write(f"Created user: {user}")
 
-        while Individual.objects.count() < 200:
+        while Individual.objects.count() < 500:
             with suppress(IntegrityError):
                 obj = Individual.objects.create(
                     prefix=fake.prefix() if p(.5) else None,
@@ -100,10 +100,11 @@ class Command(BaseCommand):
                     email_address=fake.email(),
                     date_of_birth=fake.date(),
                     signed_up_date=fake.date(),
+                    is_artist=True if p(.05) else False,
                 )
                 self.stdout.write(f"Created individual: {obj}")
 
-        while Organization.objects.count() < 200:
+        while Organization.objects.count() < 500:
             with suppress(IntegrityError):
                 obj = Organization.objects.create(
                     name=fake.company(),
@@ -117,21 +118,21 @@ class Command(BaseCommand):
                 )
                 self.stdout.write(f"Created individual: {obj}")
 
-        while Student.objects.count() < 100:
+        while Student.objects.count() < 200:
             with suppress(IntegrityError):
                 obj = Student.objects.create(
-                    contact=self.random_individual(),
+                    individual=self.random_individual(),
                 )
                 self.stdout.write(f"Created student: {obj}")
 
-        while Volunteer.objects.count() < 100:
+        while Volunteer.objects.count() < 200:
             with suppress(IntegrityError):
                 obj = Volunteer.objects.create(
-                    contact=self.random_individual(),
+                    individual=self.random_individual(),
                 )
                 self.stdout.write(f"Created volunteer: {obj}")
 
-        while Donor.objects.count() < 100:
+        while Donor.objects.count() < 200:
             if p(.5):
                 kwargs = {'individual': self.random_individual()}
             else:
@@ -143,10 +144,10 @@ class Command(BaseCommand):
                 )
                 self.stdout.write(f"Created donor: {obj}")
 
-        while Class.objects.count() < 10:
+        while Class.objects.count() < 200:
             with suppress(IntegrityError):
                 obj = Class.objects.create(
-                    description=fake.text(100),
+                    description=fake.text(50),
                     instructor=self.random_individual(),
                     start_date=fake.date(),
                     end_date=fake.date() if p(0.3) else None,
