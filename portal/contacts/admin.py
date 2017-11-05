@@ -108,7 +108,8 @@ class IndividualAdmin(admin.ModelAdmin):
     list_display = [
         'name',
         'phone_number',
-        'email_address'
+        'email_address',
+        '_categories',
     ]
 
     ordering = [
@@ -127,6 +128,17 @@ class IndividualAdmin(admin.ModelAdmin):
         'is_student',
         'is_volunteer'
     ]
+
+    @staticmethod
+    def _categories(individual):
+        categories = []
+        if individual.is_donor:
+            categories.append('Donor')
+        if individual.is_student:
+            categories.append('Student')
+        if individual.is_volunteer:
+            categories.append('Volunteer')
+        return ' / '.join(categories) if categories else None
 
 
 @admin.register(models.Organization)
