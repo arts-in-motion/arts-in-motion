@@ -1,6 +1,16 @@
 from django.contrib import admin
 
 from . import models
+from portal.contacts.models import Student
+
+
+class ListInline(admin.TabularInline):
+    extra = 1
+
+
+class StudentInline(ListInline):
+    model = Student
+    fk_name = 'classes'
 
 
 @admin.register(models.Class)
@@ -32,3 +42,7 @@ class ClassAdmin(admin.ModelAdmin):
     related_lookup_fields = {
         'fk': ['instructor'],
     }
+
+    inlines = [
+        StudentInline,
+    ]
