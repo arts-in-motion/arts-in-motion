@@ -43,6 +43,7 @@ class Individual(ContactInfo):
     is_student = models.BooleanField(default=False, verbose_name="Student?")
     is_volunteer = models.BooleanField(
         default=False, verbose_name="Volunteer?")
+    is_artist = models.BooleanField(default=False, verbose_name="Artist?")
 
     date_of_birth = models.DateField(blank=True, null=True)
 
@@ -62,6 +63,37 @@ class Organization(ContactInfo):
     is_donor = models.BooleanField(default=False)
 
 
+class Guardian(models.Model):
+
+    individual = models.ForeignKey(Individual, blank=True, null=True)
+    SEWING = 'Sewing Costumes'
+    TRANSPORTATION = 'Transportation'
+    SNACKS = 'Snacks'
+    SET = 'Set Decoration'
+    ASSIST_STAGE = 'On-Stage Assistance'
+    AD_SALES = 'Ad Sales'
+    OTHER = 'Other'
+
+    WAYS_TO_HELP_CHOICES = (
+        (SEWING, 'Sewing Costumes'),
+        (TRANSPORTATION, 'Transportation'),
+        (SNACKS, 'Snacks'),
+        (SET, 'Set Decoration'),
+        (ASSIST_STAGE, 'On-Stage Assistance'),
+        (AD_SALES, 'Ad Sales'),
+        (OTHER, 'Other')
+    )
+    ways_to_help = models.CharField(
+        max_length=50,
+        choices=WAYS_TO_HELP_CHOICES,
+        blank=True,
+        null=True
+    )
+
+    def __str__(self):
+        return f"{self.individual}"
+
+
 class Student(models.Model):
 
     individual = models.OneToOneField(Individual)
@@ -72,8 +104,13 @@ class Student(models.Model):
         null=True
     )
     #  todo fk guardian
-    guardian = models.TextField(blank=True, null=True)
-    classes = models.ManyToManyField('classes.Class', blank=True, null=True)
+    guardian = models.ForeignKey(
+        Guardian,
+        related_name="Guardian",
+        blank=True,
+        null=True
+    )
+    classes = models.ManyToManyField('classes.Class')
     strengths = models.TextField(blank=True, null=True)
     health_concerns = models.TextField(blank=True, null=True)
     accessibility_needs = models.TextField(blank=True, null=True)
@@ -108,7 +145,7 @@ class Volunteer(models.Model):
         blank=True,
         null=True
     )
-    event = models.ManyToManyField(Event)
+    events = models.ManyToManyField(Event)
     special_skills = models.TextField(blank=True, null=True)
     FUNDRAISING = 'Fundraising'
     USHERING_STAFFING_EVENTS = 'Usering/Staffing Events'
