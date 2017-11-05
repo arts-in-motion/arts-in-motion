@@ -41,8 +41,6 @@ class Individual(ContactInfo):
 
     date_of_birth = models.DateField(blank=True, null=True)
 
-    emergency_contact = models.ForeignKey('self', blank=True, null=True)
-
     @property
     def name(self):
         base = ' '.join([p for p in [self.prefix, self.first_name,
@@ -61,13 +59,15 @@ class Organization(ContactInfo):
 class Student(models.Model):
 
     contact = models.OneToOneField(Individual)
-
-    # link to classes foreignkey
-    classes = models.TextField(blank=True, null=True)
+    emergency_contact = models.ForeignKey(
+        Individual, related_name="student_emergency_contact", blank=True, null=True)
+    #  todo fk guardian
+    guardian = models.TextField(blank=True, null=True)
+    classes = models.ManyToManyField('classes.Class', blank=True, null=True)
     strengths = models.TextField(blank=True, null=True)
     health_concerns = models.TextField(blank=True, null=True)
     accessibility_needs = models.TextField(blank=True, null=True)
-    food_allergies = models.TextField(blank=True, null=True)
+    allergies = models.TextField(blank=True, null=True)
     # todo link to forms
     needs_tuition_assistance = models.BooleanField(default=False)
     accepted_dance_liability = models.BooleanField(default=False)
@@ -81,7 +81,8 @@ class Student(models.Model):
 class Volunteer(models.Model):
 
     contact = models.OneToOneField(Individual)
-
+    emergency_contact = models.ForeignKey(
+        Individual, related_name="volunteer_emergency_contact", blank=True, null=True)
     special_skills = models.TextField(blank=True, null=True)
     FUNDRAISING = 'Fundraising'
     USHERING_STAFFING_EVENTS = 'Usering/Staffing Events'

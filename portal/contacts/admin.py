@@ -31,6 +31,7 @@ class SingleInline(admin.StackedInline):
 
 class StudentInline(SingleInline):
     model = models.Student
+    fk_name = 'contact'
     verbose_name = "Student Info"
 
 
@@ -57,6 +58,7 @@ class StudentInline(SingleInline):
 
 class VolunteerInline(SingleInline):
     model = models.Volunteer
+    fk_name = 'contact'
     verbose_name = "Volunteer Info"
 
 
