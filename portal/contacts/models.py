@@ -135,6 +135,14 @@ class Student(models.Model):
         return f"{self.individual}"
 
 
+class WaysToHelp(models.Model):
+
+    way_to_help = models.CharField(max_length=100)
+
+    def __str__(self):
+        return f"{self.way_to_help}"
+
+
 class Volunteer(models.Model):
 
     individual = models.OneToOneField(Individual)
@@ -147,37 +155,8 @@ class Volunteer(models.Model):
     )
     events = models.ManyToManyField(Event)
     special_skills = models.TextField(blank=True, null=True)
-    FUNDRAISING = 'Fundraising'
-    USHERING_STAFFING_EVENTS = 'Usering/Staffing Events'
-    SERVING_ON_BOARD = 'Serving on the Board of Directors'
-    COORDINATING_EVENTS = 'Coordinating Sepcial Events'
-    ASSIST_DANCE = 'Assist in Dance Class'
-    ASSIST_MUSIC = 'Assist in Music Class'
-    ASSIST_ARTS = 'Assist in Arts Class'
-    SERVE_COMMITTEE = 'Serve on Committee'
-    OFFICE_ASSISTANCE = 'Office Assistance'
-    TECHNICAL_SUPPORT = 'Technical Support'
-    OTHER = 'Other'
 
-    WAYS_TO_HELP_CHOICES = (
-        (FUNDRAISING, 'Fundraising'),
-        (USHERING_STAFFING_EVENTS, 'Usering/Staffing Events'),
-        (SERVING_ON_BOARD, 'Serving on the Board of Directors'),
-        (COORDINATING_EVENTS, 'Coordinating Sepcial Events'),
-        (ASSIST_DANCE, 'Assist in Dance Class'),
-        (ASSIST_MUSIC, 'Assist in Music Class'),
-        (ASSIST_ARTS, 'Assist in Arts Class'),
-        (SERVE_COMMITTEE, 'Serve on Committee'),
-        (OFFICE_ASSISTANCE, 'Office Assistance'),
-        (TECHNICAL_SUPPORT, 'Technical Support'),
-        (OTHER, 'Other')
-    )
-    ways_to_help = models.CharField(
-        max_length=50,
-        choices=WAYS_TO_HELP_CHOICES,
-        blank=True,
-        null=True
-    )
+    ways_to_help = models.ManyToManyField(WaysToHelp, blank=True, null=True)
     availability = models.TextField(blank=True, null=True)
     FRIEND = 'From a Friend'
     POSTED_NOTICE = 'Posted Notice'
