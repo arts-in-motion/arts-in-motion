@@ -1,11 +1,17 @@
 from django.contrib import admin
 
+from portal.forms.models import FormSubmission
+
 from . import models
 
 
 class SingleInline(admin.StackedInline):
     max_num = 1
     extra = 0
+
+
+class ListInline(admin.TabularInline):
+    extra = 1
 
 
 class StudentInline(SingleInline):
@@ -54,13 +60,16 @@ class VolunteerInline(SingleInline):
         "availability",
         "emergency_contact",
         "referral",
-
     )
 
 
 class DonorInline(SingleInline):
     model = models.Donor
     verbose_name = "Donor Info"
+
+
+class FormSubmissionInline(ListInline):
+    model = FormSubmission
 
 
 class IndividualDonorInline(DonorInline):
@@ -97,6 +106,7 @@ class IndividualAdmin(admin.ModelAdmin):
         StudentInline,
         VolunteerInline,
         IndividualDonorInline,
+        FormSubmissionInline,
     ]
 
     list_filter = [
