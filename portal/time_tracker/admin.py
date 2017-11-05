@@ -8,9 +8,11 @@ class RecordForm(admin.ModelAdmin):
 
     fields = [
         'person',
+        'date',
+        'class_event',
+        'event',
         'hours',
         'notes',
-        'date',
     ]
 
     search_fields = [
@@ -28,4 +30,3 @@ class RecordForm(admin.ModelAdmin):
     raw_id_fields = [
         'person',
     ]
-    fields = ("person", "date", "hours", "notes")
