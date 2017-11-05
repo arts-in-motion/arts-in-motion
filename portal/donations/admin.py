@@ -15,6 +15,7 @@ class DonationAdmin(admin.ModelAdmin):
     ]
 
     list_display = [
+        'id',
         'amount',
         'donor',
         'kind',
