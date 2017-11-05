@@ -7,11 +7,15 @@ class Class(models.Model):
 
     description = models.CharField(max_length=100)
     instructor = models.ForeignKey(Individual)
+
     start_date = models.DateField()
     end_date = models.DateField(blank=True, null=True)
+
     recurrence = models.CharField(max_length=100, blank=True, null=True)
     location = models.TextField()
     notes = models.TextField(blank=True, null=True)
+
+    active = models.BooleanField(default=True)
 
     class Meta:
         verbose_name = 'Class'
