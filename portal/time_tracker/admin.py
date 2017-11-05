@@ -18,7 +18,9 @@ class RecordForm(admin.ModelAdmin):
     ]
 
     list_display = [
+        'id',
         'person',
+        'hours',
     ]
 
     ordering = [
