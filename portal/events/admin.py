@@ -4,7 +4,7 @@ from . import models
 
 
 class ListInline(admin.TabularInline):
-    extra = 1
+    extra = 0
 
 
 class VolunteerInline(ListInline):
