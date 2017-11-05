@@ -8,6 +8,8 @@ PROJECT_ROOT = os.path.dirname(CONFIG_ROOT)
 # Core
 
 INSTALLED_APPS = [
+    'grappelli',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -29,7 +31,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_swagger',
 
-    'export_action'
+    'export_action',
 ]
 
 MIDDLEWARE = [
@@ -56,6 +58,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.request',
             ],
         },
     },

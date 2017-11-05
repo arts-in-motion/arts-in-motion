@@ -28,3 +28,6 @@ class RecordForm(admin.ModelAdmin):
     raw_id_fields = [
         'person',
     ]
+    related_lookup_fields = {
+        'fk': ['person'],
+    }
