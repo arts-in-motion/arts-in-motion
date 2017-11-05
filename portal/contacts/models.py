@@ -1,4 +1,5 @@
 from django.db import models
+from portal.events.models import Event
 
 
 class ContactInfo(models.Model):
@@ -38,10 +39,12 @@ class Individual(ContactInfo):
     middle_name = models.CharField(max_length=50, blank=True, null=True)
     last_name = models.CharField(max_length=50)
     suffix = models.CharField(max_length=10, blank=True, null=True)
+    is_donor = models.BooleanField(default=False, verbose_name="Donor?")
+    is_student = models.BooleanField(default=False, verbose_name="Student?")
+    is_volunteer = models.BooleanField(
+        default=False, verbose_name="Volunteer?")
 
     date_of_birth = models.DateField(blank=True, null=True)
-
-    emergency_contact = models.ForeignKey('self', blank=True, null=True)
 
     @property
     def name(self):
@@ -56,32 +59,56 @@ class Individual(ContactInfo):
 class Organization(ContactInfo):
 
     name = models.CharField(max_length=100)
+    is_donor = models.BooleanField(default=False)
 
 
 class Student(models.Model):
 
-    contact = models.OneToOneField(Individual)
-
-    # link to classes foreignkey
-    classes = models.TextField(blank=True, null=True)
+    individual = models.OneToOneField(Individual)
+    emergency_contact = models.ForeignKey(
+        Individual,
+        related_name="student_emergency_contact",
+        blank=True,
+        null=True
+    )
+    #  todo fk guardian
+    guardian = models.TextField(blank=True, null=True)
+    classes = models.ManyToManyField('classes.Class', blank=True, null=True)
     strengths = models.TextField(blank=True, null=True)
     health_concerns = models.TextField(blank=True, null=True)
     accessibility_needs = models.TextField(blank=True, null=True)
-    food_allergies = models.TextField(blank=True, null=True)
+    allergies = models.TextField(blank=True, null=True)
     # todo link to forms
     needs_tuition_assistance = models.BooleanField(default=False)
     accepted_dance_liability = models.BooleanField(default=False)
     photo_release = models.BooleanField(default=False)
     notes = models.TextField(blank=True, null=True)
 
+    def save(self, **kwargs):
+        self.individual.is_student = True
+        self.individual.save()
+        super(Student, self).save(**kwargs)
+
+    def delete(self, **kwargs):
+        self.individual.is_student = False
+        self.individual.save()
+        super(Student, self).delete(**kwargs)
+
     def __str__(self):
-        return f"{self.contact}"
+        return f"{self.individual}"
 
 
 class Volunteer(models.Model):
 
-    contact = models.OneToOneField(Individual)
+    individual = models.OneToOneField(Individual)
 
+    emergency_contact = models.ForeignKey(
+        Individual,
+        related_name="volunteer_emergency_contact",
+        blank=True,
+        null=True
+    )
+    event = models.ManyToManyField(Event)
     special_skills = models.TextField(blank=True, null=True)
     FUNDRAISING = 'Fundraising'
     USHERING_STAFFING_EVENTS = 'Usering/Staffing Events'
@@ -125,6 +152,12 @@ class Volunteer(models.Model):
         (NEWSLETTER, 'Newsletter'),
         (OTHER, 'Other')
     )
+    emergency_contact = models.ForeignKey(
+        Individual,
+        related_name="volunteer_emergency_contact",
+        blank=True,
+        null=True
+    )
     referral = models.CharField(
         max_length=40,
         choices=REFERRAL_CHOICES,
@@ -132,8 +165,18 @@ class Volunteer(models.Model):
         null=True
     )
 
+    def save(self, **kwargs):
+        self.individual.is_volunteer = True
+        self.individual.save()
+        super(Volunteer, self).save(**kwargs)
+
+    def delete(self, **kwargs):
+        self.individual.is_volunteer = False
+        self.individual.save()
+        super(Volunteer, self).delete(**kwargs)
+
     def __str__(self):
-        return f"{self.contact}"
+        return f"{self.individual}"
 
 
 class CommunicationRecord(models.Model):
@@ -187,6 +230,24 @@ class Donor(models.Model):
     )
     motivation = models.TextField(blank=True, null=True)
     notes = models.TextField(blank=True, null=True)
+
+    def save(self, **kwargs):
+        if self.individual:
+            self.individual.is_donor = True
+            self.individual.save()
+        elif self.organization:
+            self.organization.is_donor = True
+            self.organization.save()
+        super(Donor, self).save(**kwargs)
+
+    def delete(self, **kwargs):
+        if self.individual:
+            self.individual.is_donor = False
+            self.individual.save()
+        elif self.organization:
+            self.organization.is_donor = False
+            self.organization.save()
+        super(Donor, self).delete(**kwargs)
 
     def __str__(self):
         return f"{self.individual or self.organization}"
