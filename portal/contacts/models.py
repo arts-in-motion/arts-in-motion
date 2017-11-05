@@ -1,5 +1,5 @@
 from django.db import models
-
+from portal.events.models import Event
 
 class ContactInfo(models.Model):
 
@@ -85,12 +85,7 @@ class Student(models.Model):
 class Volunteer(models.Model):
 
     contact = models.OneToOneField(Individual)
-    emergency_contact = models.ForeignKey(
-        Individual,
-        related_name="volunteer_emergency_contact",
-        blank=True,
-        null=True
-    )
+    event = models.ManyToManyField(Event)
     special_skills = models.TextField(blank=True, null=True)
     FUNDRAISING = 'Fundraising'
     USHERING_STAFFING_EVENTS = 'Usering/Staffing Events'
@@ -133,6 +128,12 @@ class Volunteer(models.Model):
         (POSTED_NOTICE, 'Posted Notice'),
         (NEWSLETTER, 'Newsletter'),
         (OTHER, 'Other')
+    )
+    emergency_contact = models.ForeignKey(
+        Individual,
+        related_name="volunteer_emergency_contact",
+        blank=True,
+        null=True
     )
     referral = models.CharField(
         max_length=40,
