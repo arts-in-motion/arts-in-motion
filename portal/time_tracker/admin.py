@@ -27,6 +27,17 @@ class RecordForm(admin.ModelAdmin):
         'person',
     ]
 
+    fields = [
+        'person',
+        'date',
+        'hours',
+        'notes',
+    ]
+
     raw_id_fields = [
         'person',
     ]
+
+    related_lookup_fields = {
+        'fk': ['person'],
+    }

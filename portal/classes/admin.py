@@ -24,3 +24,6 @@ class ClassAdmin(admin.ModelAdmin):
     raw_id_fields = [
         'instructor',
     ]
+    related_lookup_fields = {
+        'fk': ['instructor'],
+    }
