@@ -3,21 +3,21 @@ from django.contrib import admin
 from . import models
 
 
-@admin.register(models.Form)
+@admin.register(models.FormSubmission)
 class PersonForm(admin.ModelAdmin):
 
     search_fields = [
-        'name',
+        'person',
     ]
 
     list_display = [
-        'name',
+        'person',
     ]
 
     ordering = [
-        'name',
-    ]
-
-    raw_id_fields = [
         'person',
     ]
+    fields = ("person", "date", ("form_name", "is_filled"), "notes")
+
+
+admin.site.register(models.Form)

@@ -28,3 +28,4 @@ class RecordForm(admin.ModelAdmin):
     raw_id_fields = [
         'person',
     ]
+    fields = ("person", "date", "hours", "notes")
