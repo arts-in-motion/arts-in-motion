@@ -24,6 +24,7 @@ INSTALLED_APPS = [
     'portal.donations',
     'portal.api',
     'portal.time_tracker',
+    'portal.classes',
 
     'rest_framework',
     'rest_framework_swagger'

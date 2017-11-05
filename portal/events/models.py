@@ -7,3 +7,6 @@ class Event(models.Model):
     date = models.DateField()
     location = models.TextField(blank=True, null=True)
     notes = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return f"{self.name}"

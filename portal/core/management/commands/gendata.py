@@ -13,6 +13,7 @@ from faker import Faker
 
 from portal.contacts.models import (Individual, Organization,
                                     Student, Volunteer, Donor)
+from portal.classes.models import Class
 
 User = get_user_model()
 fake = Faker()
@@ -141,6 +142,17 @@ class Command(BaseCommand):
                     **kwargs,
                 )
                 self.stdout.write(f"Created donor: {obj}")
+
+        while Class.objects.count() < 10:
+            with suppress(IntegrityError):
+                obj = Class.objects.create(
+                    description=fake.text(100),
+                    instructor=self.random_individual(),
+                    start_date=fake.date(),
+                    end_date=fake.date() if p(0.3) else None,
+                    location=fake.text(),
+                )
+                self.stdout.write(f"Created class: {obj}")
 
     def random_user(self, skip=None):
         skip_ids = [self.new_user_id]
