@@ -57,6 +57,34 @@ class Organization(ContactInfo):
     name = models.CharField(max_length=100)
 
 
+class Guardian(models.Model):
+    
+    individual = models.ForeignKey(Individual, blank=True, null=True)
+    SEWING = 'Sewing Costumes'
+    TRANSPORTATION = 'Transportation'
+    SNACKS = 'Snacks'
+    SET = 'Set Decoration'
+    ASSIST_STAGE = 'On-Stage Assistance'
+    AD_SALES = 'Ad Sales'
+    OTHER = 'Other'
+
+    WAYS_TO_HELP_CHOICES = (
+        (SEWING, 'Sewing Costumes'),
+        (TRANSPORTATION, 'Transportation'),
+        (SNACKS, 'Snacks'),
+        (SET, 'Set Decoration'),
+        (ASSIST_STAGE, 'On-Stage Assistance'),
+        (AD_SALES, 'Ad Sales'),
+        (OTHER, 'Other')
+    )
+    ways_to_help = models.CharField(
+        max_length=50,
+        choices=WAYS_TO_HELP_CHOICES,
+        blank=True,
+        null=True
+    )
+
+
 class Student(models.Model):
 
     contact = models.OneToOneField(Individual)
@@ -67,7 +95,7 @@ class Student(models.Model):
         null=True
     )
     #  todo fk guardian
-    guardian = models.TextField(blank=True, null=True)
+    guardian = models.ForeignKey(Guardian, blank=True, null=True)
     classes = models.ManyToManyField('classes.Class', blank=True, null=True)
     strengths = models.TextField(blank=True, null=True)
     health_concerns = models.TextField(blank=True, null=True)
@@ -201,3 +229,4 @@ class Donor(models.Model):
 
     def __str__(self):
         return f"{self.individual or self.organization}"
+
