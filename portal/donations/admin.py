@@ -30,3 +30,6 @@ class DonationAdmin(admin.ModelAdmin):
         'donor',
         'event',
     ]
+    related_lookup_fields = {
+        'fk': ['donor', 'event'],
+    }
