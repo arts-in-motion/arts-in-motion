@@ -31,7 +31,7 @@ class SingleInline(admin.StackedInline):
 
 class StudentInline(SingleInline):
     model = models.Student
-    fk_name = 'contact'
+    fk_name = 'individual'
     verbose_name = "Student Info"
 
 
@@ -58,7 +58,7 @@ class StudentInline(SingleInline):
 
 class VolunteerInline(SingleInline):
     model = models.Volunteer
-    fk_name = 'contact'
+    fk_name = 'individual'
     verbose_name = "Volunteer Info"
 
 
@@ -109,6 +109,7 @@ class IndividualAdmin(admin.ModelAdmin):
         'name',
         'phone_number',
         'email_address',
+        '_categories',
     ]
 
     ordering = [
@@ -121,6 +122,23 @@ class IndividualAdmin(admin.ModelAdmin):
         VolunteerInline,
         IndividualDonorInline,
     ]
+
+    list_filter = [
+        'is_donor',
+        'is_student',
+        'is_volunteer'
+    ]
+
+    @staticmethod
+    def _categories(individual):
+        categories = []
+        if individual.is_donor:
+            categories.append('Donor')
+        if individual.is_student:
+            categories.append('Student')
+        if individual.is_volunteer:
+            categories.append('Volunteer')
+        return ' / '.join(categories) if categories else None
 
 
 @admin.register(models.Organization)
