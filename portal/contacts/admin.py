@@ -192,7 +192,7 @@ class OrganizationAdmin(admin.ModelAdmin):
     )
 
 
-class DonationInline(admin.TabularInline):
+class DonationInline(ListInline):
     model = Donation
 
 
