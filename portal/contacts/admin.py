@@ -98,7 +98,8 @@ class OrganizationDonorInline(DonorInline):
 class IndividualAdmin(admin.ModelAdmin):
 
     search_fields = [
-        'name',
+        'first_name',
+        'last_name',
         'email_address',
     ]
 
