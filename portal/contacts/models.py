@@ -112,7 +112,7 @@ class Student(models.Model):
         blank=True,
         null=True
     )
-    classes = models.ManyToManyField('classes.Class')
+    classes = models.ManyToManyField('classes.Class', blank=True)
     strengths = models.TextField(blank=True, null=True)
     health_concerns = models.TextField(blank=True, null=True)
     accessibility_needs = models.TextField(blank=True, null=True)
@@ -155,10 +155,10 @@ class Volunteer(models.Model):
         blank=True,
         null=True
     )
-    events = models.ManyToManyField(Event)
+    events = models.ManyToManyField(Event, blank=True)
     special_skills = models.TextField(blank=True, null=True)
 
-    ways_to_help = models.ManyToManyField(WaysToHelp)
+    ways_to_help = models.ManyToManyField(WaysToHelp, blank=True)
     availability = models.TextField(blank=True, null=True)
     FRIEND = 'From a Friend'
     POSTED_NOTICE = 'Posted Notice'
