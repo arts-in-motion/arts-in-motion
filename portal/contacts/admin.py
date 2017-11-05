@@ -31,6 +31,7 @@ class SingleInline(admin.StackedInline):
 
 class StudentInline(SingleInline):
     model = models.Student
+    fk_name = 'individual'
     verbose_name = "Student Info"
 
 
@@ -57,6 +58,7 @@ class StudentInline(SingleInline):
 
 class VolunteerInline(SingleInline):
     model = models.Volunteer
+    fk_name = 'individual'
     verbose_name = "Volunteer Info"
 
 
@@ -98,14 +100,15 @@ class OrganizationDonorInline(DonorInline):
 class IndividualAdmin(admin.ModelAdmin):
 
     search_fields = [
-        'name',
+        'first_name',
+        'last_name',
         'email_address',
     ]
 
     list_display = [
         'name',
         'phone_number',
-        'email_address',
+        'email_address'
     ]
 
     ordering = [
@@ -117,6 +120,12 @@ class IndividualAdmin(admin.ModelAdmin):
         StudentInline,
         VolunteerInline,
         IndividualDonorInline,
+    ]
+
+    list_filter = [
+        'is_donor',
+        'is_student',
+        'is_volunteer'
     ]
 
 
