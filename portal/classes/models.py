@@ -13,5 +13,9 @@ class Class(models.Model):
     location = models.TextField()
     notes = models.TextField(blank=True, null=True)
 
+    class Meta:
+        verbose_name = 'Class'
+        verbose_name_plural = 'Classes'
+
     def __str__(self):
         return f"{self.description}"
