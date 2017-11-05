@@ -114,6 +114,10 @@ class IndividualAdmin(admin.ModelAdmin):
         'last_name',
     ]
 
+    raw_id_fields = [
+        'emergency_contact',
+    ]
+
     inlines = [
         StudentInline,
         VolunteerInline,
@@ -142,3 +146,18 @@ class OrganizationAdmin(admin.ModelAdmin):
     inlines = [
         OrganizationDonorInline,
     ]
+
+
+@admin.register(models.Donor)
+class DonorAdmin(admin.ModelAdmin):
+
+    search_fields = [
+        'individual__first_name',
+        'individual__last_name',
+        'organization__name',
+    ]
+
+    @staticmethod
+    def get_model_perms(_request):
+        """Hide this model, but make it available for search."""
+        return {}

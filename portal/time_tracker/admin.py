@@ -6,14 +6,25 @@ from . import models
 @admin.register(models.Record)
 class RecordForm(admin.ModelAdmin):
 
+    fields = [
+        'person',
+        'hours',
+        'notes',
+        'date',
+    ]
+
     search_fields = [
-        'person'
+        'person',
     ]
 
     list_display = [
-        'person'
+        'person',
     ]
 
     ordering = [
-        'person'
+        'person',
+    ]
+
+    raw_id_fields = [
+        'person',
     ]

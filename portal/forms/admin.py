@@ -17,3 +17,7 @@ class PersonForm(admin.ModelAdmin):
     ordering = [
         'name',
     ]
+
+    raw_id_fields = [
+        'person',
+    ]

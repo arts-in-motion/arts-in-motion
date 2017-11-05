@@ -21,3 +21,8 @@ class DonationAdmin(admin.ModelAdmin):
         'donor',
         'amount',
     ]
+
+    raw_id_fields = [
+        'donor',
+        'event',
+    ]
