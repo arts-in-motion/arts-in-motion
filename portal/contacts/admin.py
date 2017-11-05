@@ -1,11 +1,18 @@
 from django.contrib import admin
 
+from portal.donations.models import Donation
+from portal.forms.models import FormSubmission
+
 from . import models
 
 
 class SingleInline(admin.StackedInline):
     max_num = 1
     extra = 0
+
+
+class ListInline(admin.TabularInline):
+    extra = 1
 
 
 class StudentInline(SingleInline):
@@ -54,13 +61,16 @@ class VolunteerInline(SingleInline):
         "availability",
         "emergency_contact",
         "referral",
-
     )
 
 
 class DonorInline(SingleInline):
     model = models.Donor
     verbose_name = "Donor Info"
+
+
+class FormSubmissionInline(ListInline):
+    model = FormSubmission
 
 
 class IndividualDonorInline(DonorInline):
@@ -97,6 +107,7 @@ class IndividualAdmin(admin.ModelAdmin):
         StudentInline,
         VolunteerInline,
         IndividualDonorInline,
+        FormSubmissionInline,
     ]
 
     list_filter = [
@@ -181,6 +192,10 @@ class OrganizationAdmin(admin.ModelAdmin):
     )
 
 
+class DonationInline(ListInline):
+    model = Donation
+
+
 @admin.register(models.Donor)
 class DonorAdmin(admin.ModelAdmin):
 
@@ -190,10 +205,15 @@ class DonorAdmin(admin.ModelAdmin):
         'organization__name',
     ]
 
-    @staticmethod
-    def get_model_perms(_request):
-        """Hide this model, but make it available for search."""
-        return {}
+    list_display = [
+        'id',
+        'individual',
+        'organization',
+    ]
+
+    inlines = [
+        DonationInline,
+    ]
 
 
 @admin.register(models.Guardian)
