@@ -109,7 +109,7 @@ class Student(models.Model):
         blank=True,
         null=True
     )
-    classes = models.ManyToManyField('classes.Class', blank=True, null=True)
+    classes = models.ManyToManyField('classes.Class')
     strengths = models.TextField(blank=True, null=True)
     health_concerns = models.TextField(blank=True, null=True)
     accessibility_needs = models.TextField(blank=True, null=True)
@@ -144,7 +144,7 @@ class Volunteer(models.Model):
         blank=True,
         null=True
     )
-    event = models.ManyToManyField(Event)
+    events = models.ManyToManyField(Event)
     special_skills = models.TextField(blank=True, null=True)
     FUNDRAISING = 'Fundraising'
     USHERING_STAFFING_EVENTS = 'Usering/Staffing Events'

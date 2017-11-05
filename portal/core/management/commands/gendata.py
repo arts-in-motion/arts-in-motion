@@ -146,7 +146,7 @@ class Command(BaseCommand):
         while Class.objects.count() < 200:
             with suppress(IntegrityError):
                 obj = Class.objects.create(
-                    description=fake.text(100),
+                    description=fake.text(50),
                     instructor=self.random_individual(),
                     start_date=fake.date(),
                     end_date=fake.date() if p(0.3) else None,

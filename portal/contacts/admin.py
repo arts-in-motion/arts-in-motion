@@ -8,52 +8,12 @@ class SingleInline(admin.StackedInline):
     extra = 0
 
 
-# @admin.register(models.Student)
-# class StudentAdmin(admin.ModelAdmin):
-
-#     search_fields = [
-#         'contact__name',
-#     ]
-
-#     list_display = [
-#         '_name',
-#         'classes',
-#     ]
-
-#     ordering = [
-#         'contact__name',
-#     ]
-
-#     @staticmethod
-#     def _name(student):
-#         return student.contact.n
-
-
 class StudentInline(SingleInline):
     model = models.Student
     fk_name = 'individual'
     verbose_name = "Student Info"
 
-
-# @admin.register(models.Volunteer)
-# class VolunteerAdmin(admin.ModelAdmin):
-
-#     search_fields = [
-#         'contact__name',
-#     ]
-
-#     list_display = [
-#         '_name',
-#         'availability',
-#     ]
-
-#     ordering = [
-#         'contact__name',
-#     ]
-
-#     @staticmethod
-#     def _name(volunteer):
-#         return volunteer.contact.name
+    filter_horizontal = ['classes']
 
 
 class VolunteerInline(SingleInline):
@@ -61,26 +21,7 @@ class VolunteerInline(SingleInline):
     fk_name = 'individual'
     verbose_name = "Volunteer Info"
 
-
-# @admin.register(models.Donor)
-# class DonorAdmin(admin.ModelAdmin):
-
-#     search_fields = [
-#         'contact__name',
-#     ]
-
-#     list_display = [
-#         '_name',
-#         'donor_type',
-#     ]
-
-#     ordering = [
-#         'contact__name',
-#     ]
-
-#     @staticmethod
-#     def _name(donor):
-#         return donor.contact.name
+    filter_horizontal = ['events']
 
 
 class DonorInline(SingleInline):
@@ -115,10 +56,6 @@ class IndividualAdmin(admin.ModelAdmin):
     ordering = [
         'first_name',
         'last_name',
-    ]
-
-    raw_id_fields = [
-        'emergency_contact',
     ]
 
     inlines = [
