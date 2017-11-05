@@ -43,6 +43,7 @@ class Individual(ContactInfo):
     is_student = models.BooleanField(default=False, verbose_name="Student?")
     is_volunteer = models.BooleanField(
         default=False, verbose_name="Volunteer?")
+    is_artist = models.BooleanField(default=False, verbose_name="Artist?")
 
     date_of_birth = models.DateField(blank=True, null=True)
 
