@@ -1,7 +1,6 @@
 from django.contrib import admin
-
-from . import models
 from portal.contacts.models import Volunteer
+from . import models
 
 
 class SingleInline(admin.StackedInline):
@@ -15,7 +14,7 @@ class ListInline(admin.TabularInline):
 
 class VolunteerInline(ListInline):
     model = Volunteer.events.through
-    verbose_name ="Volunteer"
+    verbose_name = "Volunteer"
 
 
 @admin.register(models.Event)
