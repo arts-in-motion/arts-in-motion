@@ -27,7 +27,9 @@ INSTALLED_APPS = [
     'portal.classes',
 
     'rest_framework',
-    'rest_framework_swagger'
+    'rest_framework_swagger',
+
+    'export_action'
 ]
 
 MIDDLEWARE = [
