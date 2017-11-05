@@ -105,7 +105,7 @@ class IndividualAdmin(admin.ModelAdmin):
     list_display = [
         'name',
         'phone_number',
-        'email_address',
+        'email_address'
     ]
 
     ordering = [
@@ -117,6 +117,12 @@ class IndividualAdmin(admin.ModelAdmin):
         StudentInline,
         VolunteerInline,
         IndividualDonorInline,
+    ]
+
+    list_filter = [
+        'is_donor',
+        'is_student',
+        'is_volunteer'
     ]
 
 
