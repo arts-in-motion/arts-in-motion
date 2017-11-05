@@ -25,8 +25,9 @@ class PersonFormAdmin(admin.ModelAdmin):
 
     list_display = [
         'id',
-        'form_name',
         'person',
+        'form_name',
+        'is_filled',
     ]
 
     ordering = [
