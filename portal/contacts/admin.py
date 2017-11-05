@@ -162,3 +162,5 @@ class OrganizationAdmin(admin.ModelAdmin):
     inlines = [
         OrganizationDonorInline,
     ]
+
+admin.site.register(models.Guardian)

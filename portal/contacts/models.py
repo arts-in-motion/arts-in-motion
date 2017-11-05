@@ -89,6 +89,9 @@ class Guardian(models.Model):
         null=True
     )
 
+    def __str__(self):
+        return f"{self.individual}"
+
 
 class Student(models.Model):
 
@@ -100,7 +103,12 @@ class Student(models.Model):
         null=True
     )
     #  todo fk guardian
-    guardian = models.ForeignKey(Guardian, blank=True, null=True)
+    guardian = models.ForeignKey(
+        Guardian, 
+        related_name="Guardian",
+        blank=True, 
+        null=True
+    )
     classes = models.ManyToManyField('classes.Class', blank=True, null=True)
     strengths = models.TextField(blank=True, null=True)
     health_concerns = models.TextField(blank=True, null=True)
