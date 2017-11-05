@@ -181,3 +181,6 @@ class DonorAdmin(admin.ModelAdmin):
     def get_model_perms(_request):
         """Hide this model, but make it available for search."""
         return {}
+
+
+admin.site.register(models.Guardian)
