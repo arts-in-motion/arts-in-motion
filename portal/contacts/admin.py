@@ -31,13 +31,14 @@ class StudentInline(SingleInline):
         'notes'
     )
 
+admin.site.register(models.WaysToHelp)
 
 class VolunteerInline(SingleInline):
     model = models.Volunteer
     fk_name = 'individual'
     verbose_name = "Volunteer Info"
 
-    filter_horizontal = ['events']
+    filter_horizontal = ['events', 'ways_to_help']
     fields = (
         "ways_to_help",
         "events",
