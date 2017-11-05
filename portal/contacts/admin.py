@@ -40,6 +40,7 @@ class WaysToHelpAdmin(admin.ModelAdmin):
         """Hide this model, but make it available for search."""
         return {}
 
+
 class VolunteerInline(SingleInline):
     model = models.Volunteer
     fk_name = 'individual'

@@ -134,12 +134,14 @@ class Student(models.Model):
     def __str__(self):
         return f"{self.individual}"
 
+
 class WaysToHelp(models.Model):
 
     way_to_help = models.CharField(max_length=100)
 
     def __str__(self):
         return f"{self.way_to_help}"
+
 
 class Volunteer(models.Model):
 
