@@ -12,6 +12,7 @@ python_version = "3.6"
 # Django
 django = "~=1.11"
 django-flat-responsive = "*"
+django-export-action = "*"
 
 # Django REST Framework
 djangorestframework = "~=3.6.3"
