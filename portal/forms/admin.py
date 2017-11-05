@@ -3,7 +3,7 @@ from django.contrib import admin
 from . import models
 
 
-@admin.register(models.Form)
+@admin.register(models.FormSubmission)
 class PersonForm(admin.ModelAdmin):
 
     search_fields = [
@@ -17,16 +17,7 @@ class PersonForm(admin.ModelAdmin):
     ordering = [
         'person',
     ]
-    fields = ("person", "date", "form_type", "is_filled", "notes")
+    fields = ("person", "date", ("form_name", "is_filled"), "notes")
 
 
-@admin.register(models.FormType)
-class FormType(admin.ModelAdmin):
-
-    list_display = [
-        'name',
-    ]
-
-    raw_id_fields = [
-        'person',
-    ]
+admin.site.register(models.Form)

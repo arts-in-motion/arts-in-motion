@@ -3,7 +3,7 @@ from django.db import models
 from portal.contacts.models import Individual
 
 
-class FormType(models.Model):
+class Form(models.Model):
 
     name = models.CharField(max_length=100)
 
@@ -11,10 +11,10 @@ class FormType(models.Model):
         return f"{self.name}"
 
 
-class Form(models.Model):
+class FormSubmission(models.Model):
 
     person = models.ForeignKey(Individual)
-    form_type = models.ForeignKey(FormType)
+    form_name = models.ForeignKey(Form)
     notes = models.TextField(blank=True, null=True)
     is_filled = models.BooleanField()
 
