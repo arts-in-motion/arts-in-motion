@@ -23,9 +23,11 @@ class StudentInline(SingleInline):
         'health_concerns',
         'accessibility_needs',
         'allergies',
-        ('needs_tuition_assistance',
-        'accepted_dance_liability',
-        'photo_release'),
+        (
+            'needs_tuition_assistance',
+            'accepted_dance_liability',
+            'photo_release'
+        ),
         'notes'
     )
 
