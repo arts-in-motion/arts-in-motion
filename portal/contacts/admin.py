@@ -31,6 +31,7 @@ class StudentInline(SingleInline):
         'notes'
     )
 
+
 class VolunteerInline(SingleInline):
     model = models.Volunteer
     fk_name = 'individual'
@@ -46,6 +47,7 @@ class VolunteerInline(SingleInline):
         "referral",
 
     )
+
 
 class DonorInline(SingleInline):
     model = models.Donor
@@ -93,7 +95,6 @@ class IndividualAdmin(admin.ModelAdmin):
         'is_volunteer',
         'is_artist',
     ]
-
 
     fields = (
         'prefix',
@@ -160,6 +161,7 @@ class OrganizationAdmin(admin.ModelAdmin):
         'contact_method',
         'notes',
     )
+
 
 @admin.register(models.Donor)
 class DonorAdmin(admin.ModelAdmin):
