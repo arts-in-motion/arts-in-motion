@@ -3,19 +3,26 @@ from django.contrib import admin
 from . import models
 
 
-@admin.register(models.Form)
+@admin.register(models.FormSubmission)
 class PersonForm(admin.ModelAdmin):
 
     search_fields = [
-        'name',
+        'person',
     ]
 
     list_display = [
-        'name',
+        'person',
     ]
 
     ordering = [
-        'name',
+        'person',
+    ]
+
+    fields = [
+        'person',
+        'date',
+        ('form_name', 'is_filled'),
+        'notes',
     ]
 
     raw_id_fields = [
@@ -24,3 +31,6 @@ class PersonForm(admin.ModelAdmin):
     related_lookup_fields = {
         'fk': ['person'],
     }
+
+
+admin.site.register(models.Form)
