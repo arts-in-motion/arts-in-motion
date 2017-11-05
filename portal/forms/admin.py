@@ -17,7 +17,20 @@ class PersonForm(admin.ModelAdmin):
     ordering = [
         'person',
     ]
-    fields = ("person", "date", ("form_name", "is_filled"), "notes")
+
+    fields = [
+        'person',
+        'date',
+        ('form_name', 'is_filled'),
+        'notes',
+    ]
+
+    raw_id_fields = [
+        'person',
+    ]
+    related_lookup_fields = {
+        'fk': ['person'],
+    }
 
 
 admin.site.register(models.Form)

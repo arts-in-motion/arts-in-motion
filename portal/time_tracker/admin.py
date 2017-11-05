@@ -8,9 +8,11 @@ class RecordForm(admin.ModelAdmin):
 
     fields = [
         'person',
+        'date',
+        'class_event',
+        'event',
         'hours',
         'notes',
-        'date',
     ]
 
     search_fields = [
@@ -25,7 +27,17 @@ class RecordForm(admin.ModelAdmin):
         'person',
     ]
 
+    fields = [
+        'person',
+        'date',
+        'hours',
+        'notes',
+    ]
+
     raw_id_fields = [
         'person',
     ]
-    fields = ("person", "date", "hours", "notes")
+
+    related_lookup_fields = {
+        'fk': ['person'],
+    }
