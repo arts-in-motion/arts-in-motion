@@ -31,7 +31,9 @@ class StudentInline(SingleInline):
         'notes'
     )
 
+
 admin.site.register(models.WaysToHelp)
+
 
 class VolunteerInline(SingleInline):
     model = models.Volunteer
