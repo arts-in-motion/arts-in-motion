@@ -33,7 +33,15 @@ class VolunteerInline(SingleInline):
     verbose_name = "Volunteer Info"
 
     filter_horizontal = ['events']
+    fields = (
+        "ways_to_help",
+        "events",
+        "special_skills",
+        "availability",
+        "emergency_contact",
+        "referral",
 
+    )
 
 class DonorInline(SingleInline):
     model = models.Donor
@@ -137,7 +145,17 @@ class OrganizationAdmin(admin.ModelAdmin):
     inlines = [
         OrganizationDonorInline,
     ]
-
+    fields = (
+        ('name', 'is_donor'),
+        'street_address',
+        'city',
+        'state',
+        'zip_code',
+        'phone_number',
+        'email_address',
+        'contact_method',
+        'notes',
+    )
 
 @admin.register(models.Donor)
 class DonorAdmin(admin.ModelAdmin):
