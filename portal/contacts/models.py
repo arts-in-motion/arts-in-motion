@@ -156,7 +156,7 @@ class Volunteer(models.Model):
     events = models.ManyToManyField(Event)
     special_skills = models.TextField(blank=True, null=True)
 
-    ways_to_help = models.ManyToManyField(WaysToHelp, blank=True, null=True)
+    ways_to_help = models.ManyToManyField(WaysToHelp)
     availability = models.TextField(blank=True, null=True)
     FRIEND = 'From a Friend'
     POSTED_NOTICE = 'Posted Notice'

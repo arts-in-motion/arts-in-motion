@@ -15,6 +15,10 @@ class ClassAdmin(admin.ModelAdmin):
         'description',
         'instructor',
         'start_date',
+        'active',
+    ]
+    list_filter = [
+        'active',
     ]
 
     ordering = [
