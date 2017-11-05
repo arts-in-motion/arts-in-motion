@@ -1,16 +1,16 @@
 from django.contrib import admin
 
-from . import models
 from portal.contacts.models import Student
+
+from . import models
 
 
 class ListInline(admin.TabularInline):
-    extra = 1
+    extra = 0
 
 
 class StudentInline(ListInline):
-    model = Student
-    fk_name = 'classes'
+    model = Student.classes.through
 
 
 @admin.register(models.Class)
