@@ -36,8 +36,9 @@ class Command(BaseCommand):
                 state='State',
                 zip_code='Zip',
                 email_address='Email',
-                # TODO: How should we identify these as artists?
-            ))
+
+            ),
+            is_artist=True)
 
         self.parse_sheet(
             'Businesses', names, workbook, Organization,
@@ -51,7 +52,8 @@ class Command(BaseCommand):
                 zip_code='Zip',
                 phone_number='Phone',
                 email_address='Email',
-            ))
+            ),
+            notes="Business")
 
         self.parse_sheet(
             'Community Partners', names, workbook, Organization,
@@ -66,7 +68,8 @@ class Command(BaseCommand):
                 phone_number='Number',
                 email_address='Email',
                 # TODO: Add contact person
-            ))
+            ),
+            notes="Community Parter")
 
         self.parse_sheet(
             'Individuals', names, workbook, Individual,
@@ -122,7 +125,8 @@ class Command(BaseCommand):
         if names:
             logging.warning(f"Unused sheets: {names}")
 
-    def parse_sheet(self, name, names, workbook, model, id_map, attr_map):
+    def parse_sheet(self, name, names, workbook,
+                    model, id_map, attr_map, **extra):
         names.remove(name)
 
         sheet = workbook[name]
@@ -145,6 +149,8 @@ class Command(BaseCommand):
 
             for key, value in attr_map.items():
                 setattr(obj, key, data.pop(value))
+            for key, value in extra.items():
+                setattr(obj, key, value)
 
             obj.save()
 
