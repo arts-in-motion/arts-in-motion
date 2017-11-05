@@ -7,11 +7,12 @@ from . import models
 class ClassAdmin(admin.ModelAdmin):
 
     search_fields = [
-        'name',
+        'description',
     ]
 
     list_display = [
         'description',
+        'instructor',
         'start_date',
     ]
 
