@@ -80,6 +80,7 @@ class IndividualAdmin(admin.ModelAdmin):
     ]
 
     list_display = [
+        'id',
         'name',
         'phone_number',
         'email_address',
@@ -146,6 +147,7 @@ class OrganizationAdmin(admin.ModelAdmin):
     ]
 
     list_display = [
+        'id',
         'name',
         'phone_number',
         'email_address',
@@ -186,4 +188,10 @@ class DonorAdmin(admin.ModelAdmin):
         return {}
 
 
-admin.site.register(models.Guardian)
+@admin.register(models.Guardian)
+class GardianAdmin(admin.ModelAdmin):
+
+    @staticmethod
+    def get_model_perms(_request):
+        """Hide this model, but make it available for search."""
+        return {}
