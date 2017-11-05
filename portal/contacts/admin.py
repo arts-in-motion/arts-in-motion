@@ -67,7 +67,8 @@ class IndividualAdmin(admin.ModelAdmin):
     list_filter = [
         'is_donor',
         'is_student',
-        'is_volunteer'
+        'is_volunteer',
+        'is_artist',
     ]
 
     @staticmethod
@@ -79,6 +80,8 @@ class IndividualAdmin(admin.ModelAdmin):
             categories.append('Student')
         if individual.is_volunteer:
             categories.append('Volunteer')
+        if individual.is_artist:
+            categories.append('Artist')
         return ' / '.join(categories) if categories else None
 
 
