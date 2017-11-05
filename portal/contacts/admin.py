@@ -1,6 +1,7 @@
 from django.contrib import admin
 
 from . import models
+from portal.donations.models import Donation
 
 
 class SingleInline(admin.StackedInline):
@@ -181,6 +182,10 @@ class OrganizationAdmin(admin.ModelAdmin):
     )
 
 
+class DonationInline(admin.TabularInline):
+    model = Donation
+
+
 @admin.register(models.Donor)
 class DonorAdmin(admin.ModelAdmin):
 
@@ -190,11 +195,15 @@ class DonorAdmin(admin.ModelAdmin):
         'organization__name',
     ]
 
-    @staticmethod
-    def get_model_perms(_request):
-        """Hide this model, but make it available for search."""
-        return {}
+    list_display = [
+        'id',
+        'individual',
+        'organization',
+    ]
 
+    inlines = [
+        DonationInline,
+    ]
 
 @admin.register(models.Guardian)
 class GardianAdmin(admin.ModelAdmin):
