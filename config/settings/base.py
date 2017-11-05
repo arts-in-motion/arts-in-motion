@@ -126,3 +126,8 @@ STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
 # CORS
 
 CORS_ORIGIN_ALLOW_ALL = True
+
+###############################################################################
+# Grappelli
+
+GRAPPELLI_ADMIN_TITLE = "Arts in Motion Data Portal"
