@@ -32,8 +32,13 @@ class StudentInline(SingleInline):
     )
 
 
-admin.site.register(models.WaysToHelp)
+@admin.register(models.WaysToHelp)
+class WaysToHelpAdmin(admin.ModelAdmin):
 
+    @staticmethod
+    def get_model_perms(_request):
+        """Hide this model, but make it available for search."""
+        return {}
 
 class VolunteerInline(SingleInline):
     model = models.Volunteer
