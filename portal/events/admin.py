@@ -3,11 +3,6 @@ from portal.contacts.models import Volunteer
 from . import models
 
 
-class SingleInline(admin.StackedInline):
-    max_num = 1
-    extra = 0
-
-
 class ListInline(admin.TabularInline):
     extra = 1
 
