@@ -7,13 +7,21 @@ from . import models
 class PersonForm(admin.ModelAdmin):
 
     search_fields = [
-        'name',
+        'person',
     ]
 
     list_display = [
-        'name',
+        'person',
     ]
 
     ordering = [
-        'name',
+        'person',
     ]
+    fields=("person", "date", "form_type", "is_filled", "notes")
+
+@admin.register(models.FormType)
+class FormType(admin.ModelAdmin):
+
+	list_display = [
+		'name',
+	]
