@@ -1,6 +1,7 @@
 from django.db import models
 from portal.events.models import Event
 
+
 class ContactInfo(models.Model):
 
     class Meta:
