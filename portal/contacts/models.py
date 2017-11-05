@@ -63,7 +63,7 @@ class Organization(ContactInfo):
 
 
 class Guardian(models.Model):
-    
+
     individual = models.ForeignKey(Individual, blank=True, null=True)
     SEWING = 'Sewing Costumes'
     TRANSPORTATION = 'Transportation'
@@ -104,9 +104,9 @@ class Student(models.Model):
     )
     #  todo fk guardian
     guardian = models.ForeignKey(
-        Guardian, 
+        Guardian,
         related_name="Guardian",
-        blank=True, 
+        blank=True,
         null=True
     )
     classes = models.ManyToManyField('classes.Class', blank=True, null=True)
@@ -287,4 +287,3 @@ class Donor(models.Model):
 
     def __str__(self):
         return f"{self.individual or self.organization}"
-
