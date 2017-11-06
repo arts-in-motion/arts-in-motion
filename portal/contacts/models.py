@@ -16,9 +16,11 @@ class ContactInfo(models.Model):
 
     PHONE = 'Phone'
     EMAIL = 'Email'
+    SMS = 'SMS'
     CONTACT_METHOD_CHOICES = (
         (PHONE, 'Phone'),
         (EMAIL, 'Email'),
+        (SMS, 'SMS')
     )
     contact_method = models.CharField(
         max_length=20,
