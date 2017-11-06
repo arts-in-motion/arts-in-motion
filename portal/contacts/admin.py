@@ -1,4 +1,6 @@
 from django.contrib import admin
+from django.shortcuts import reverse
+from django.utils.html import format_html_join
 
 from portal.donations.models import Donation
 from portal.forms.models import FormSubmission
@@ -160,6 +162,8 @@ class IndividualAdmin(admin.ModelAdmin):
 @admin.register(models.Organization)
 class OrganizationAdmin(admin.ModelAdmin):
 
+    # List
+
     search_fields = [
         'name',
         'email_address',
@@ -170,15 +174,26 @@ class OrganizationAdmin(admin.ModelAdmin):
         'name',
         'phone_number',
         'email_address',
+        'Individual_contacts',
     ]
 
     ordering = [
         'name',
     ]
 
-    inlines = [
-        OrganizationDonorInline,
-    ]
+    @staticmethod
+    def Individual_contacts(organization):
+        links = []
+
+        for c in organization.contacts.all():
+            href = reverse('admin:contacts_individual_change', args=[c.id])
+            links.append((href, c.name))
+
+        if links:
+            return format_html_join('\n', '<p><a href="{}">{}</a></p>', links)
+
+    # Detail
+
     fields = (
         ('name', 'is_donor'),
         'street_address',
@@ -188,8 +203,17 @@ class OrganizationAdmin(admin.ModelAdmin):
         'phone_number',
         'email_address',
         'contact_method',
+        'contacts',
         'notes',
     )
+
+    filter_horizontal = [
+        'contacts',
+    ]
+
+    inlines = [
+        OrganizationDonorInline,
+    ]
 
 
 class DonationInline(ListInline):
