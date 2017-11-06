@@ -160,6 +160,8 @@ class IndividualAdmin(admin.ModelAdmin):
 @admin.register(models.Organization)
 class OrganizationAdmin(admin.ModelAdmin):
 
+    # List
+
     search_fields = [
         'name',
         'email_address',
@@ -176,9 +178,8 @@ class OrganizationAdmin(admin.ModelAdmin):
         'name',
     ]
 
-    inlines = [
-        OrganizationDonorInline,
-    ]
+    # Detail
+
     fields = (
         ('name', 'is_donor'),
         'street_address',
@@ -188,8 +189,17 @@ class OrganizationAdmin(admin.ModelAdmin):
         'phone_number',
         'email_address',
         'contact_method',
+        'contacts',
         'notes',
     )
+
+    filter_horizontal = [
+        'contacts',
+    ]
+
+    inlines = [
+        OrganizationDonorInline,
+    ]
 
 
 class DonationInline(ListInline):

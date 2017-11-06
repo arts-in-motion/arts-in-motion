@@ -39,6 +39,7 @@ class Individual(ContactInfo):
     middle_name = models.CharField(max_length=50, blank=True, null=True)
     last_name = models.CharField(max_length=50)
     suffix = models.CharField(max_length=10, blank=True, null=True)
+
     is_staff = models.BooleanField(default=False, verbose_name="Staff?")
     is_donor = models.BooleanField(default=False, verbose_name="Donor?")
     is_student = models.BooleanField(default=False, verbose_name="Student?")
@@ -62,7 +63,11 @@ class Individual(ContactInfo):
 class Organization(ContactInfo):
 
     name = models.CharField(max_length=100)
+
     is_donor = models.BooleanField(default=False)
+
+    contacts = models.ManyToManyField(Individual, blank=True,
+                                      verbose_name="Individual contacts")
 
 
 class Guardian(models.Model):
