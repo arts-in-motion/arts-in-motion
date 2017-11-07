@@ -8,7 +8,8 @@ class ContactInfo(models.Model):
         abstract = True
 
     street_address = models.CharField(max_length=100, blank=True, null=True)
-    second_street_address = models.CharField(max_length=100, blank=True, null=True)
+    second_street_address = models.CharField(
+        max_length=100, blank=True, null=True)
     city = models.CharField(max_length=50, blank=True, null=True)
     state = models.CharField(max_length=50, blank=True, null=True)
     zip_code = models.CharField(max_length=10, blank=True, null=True)
