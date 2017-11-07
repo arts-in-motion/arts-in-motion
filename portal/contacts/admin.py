@@ -131,6 +131,7 @@ class IndividualAdmin(admin.ModelAdmin):
         ('is_donor', 'is_student', 'is_artist'),
         ('is_staff', 'is_volunteer', 'is_board'),
         'street_address',
+        'second_street_address',
         'city',
         'state',
         'zip_code',
