@@ -20,7 +20,7 @@ fake = Faker()
 
 
 def p(value):
-    return value < random.random()
+    return value > random.random()
 
 
 class Command(BaseCommand):
@@ -87,11 +87,11 @@ class Command(BaseCommand):
         while Individual.objects.count() < 500:
             with suppress(IntegrityError):
                 obj = Individual.objects.create(
-                    prefix=fake.prefix() if p(.5) else None,
+                    prefix=fake.prefix() if p(0.50) else None,
                     first_name=fake.first_name(),
-                    middle_name=fake.first_name() if p(.1) else None,
+                    middle_name=fake.first_name() if p(0.10) else None,
                     last_name=fake.last_name(),
-                    suffix=fake.suffix() if p(.1) else None,
+                    suffix=fake.suffix() if p(0.10) else None,
                     street_address=fake.address(),
                     city=fake.city(),
                     state=fake.state(),
@@ -100,7 +100,7 @@ class Command(BaseCommand):
                     email_address=fake.email(),
                     date_of_birth=fake.date(),
                     signed_up_date=fake.date(),
-                    is_artist=True if p(.05) else False,
+                    is_artist=True if p(0.05) else False,
                 )
                 self.stdout.write(f"Created individual: {obj}")
 
@@ -133,7 +133,7 @@ class Command(BaseCommand):
                 self.stdout.write(f"Created volunteer: {obj}")
 
         while Donor.objects.count() < 200:
-            if p(.5):
+            if p(0.5):
                 kwargs = {'individual': self.random_individual()}
             else:
                 kwargs = {'organization': self.random_organization()}
@@ -150,7 +150,7 @@ class Command(BaseCommand):
                     description=fake.text(50),
                     instructor=self.random_individual(),
                     start_date=fake.date(),
-                    end_date=fake.date() if p(0.3) else None,
+                    end_date=fake.date() if p(0.30) else None,
                     location=fake.text(),
                 )
                 self.stdout.write(f"Created class: {obj}")
