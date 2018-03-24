@@ -192,6 +192,8 @@ class OrganizationAdmin(admin.ModelAdmin):
         if links:
             return format_html_join('\n', '<p><a href="{}">{}</a></p>', links)
 
+        return None
+
     # Detail
 
     fields = (
