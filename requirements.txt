@@ -1,0 +1,39 @@
+# Django
+django==1.11
+django-grappelli
+django-export-action
+# Django REST Framework
+djangorestframework==3.6.3
+drf-nested-routers
+django-rest-swagger
+# Database
+dj-database-url==0.4.2
+psycopg2
+# Scripts
+faker
+openpyxl
+# Server
+whitenoise==3.3
+gunicorn==19.7
+pipfile
+
+# Linters
+pylint
+pycodestyle
+pydocstyle
+# Testing
+pytest
+pytest-django
+pytest-describe
+pytest-expecter
+pytest-cov
+pytest-randomly
+pytest-catchlog
+# Coverage
+coverage
+coverage-space
+# Tooling
+honcho
+splinter
+fire
+sniffer
