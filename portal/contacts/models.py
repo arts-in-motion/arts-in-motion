@@ -11,7 +11,7 @@ class ContactInfo(models.Model):
     city = models.CharField(max_length=50, blank=True, null=True)
     state = models.CharField(max_length=50, blank=True, null=True)
     zip_code = models.CharField(max_length=10, blank=True, null=True)
-    phone_number = models.CharField(max_length=20, blank=True, null=True)
+    phone_number = models.CharField(max_length=25, blank=True, null=True)
     email_address = models.EmailField(blank=True, null=True)
 
     PHONE = 'Phone'
