@@ -59,4 +59,37 @@ Visit '.../donations/donation/' to se a list of donations. You can search donati
 
 To add a new donation:
 
-Click 'Add Donation' and it will take you to '.../donations/donation/add/'
+Click 'Add Donation' and it will take you to '.../donations/donation/add/'.
+
+To look up a donor click on the magnifying glass and a window will popup with a list of donors. If the Donor you are looking for isn't on the list, you can click 'Add Donor' and follow the instructions.
+
+If the donation was from an event, you can add the event. If the event isn't listed, you can add it.
+
+## Events
+
+You will find a list of events at '.../events/event/' with the name and date of the event.
+
+You can add events or see a detailed view of each event.
+
+On the detailed view you can see volunteers who assisted at this event. You can add volunteers here as well in the same way we add students to classes.
+
+## Forms
+
+Forms are deliberately flexible. It is a way to track if a student/volunteer etc submitted documentation. It can also be used to indicate if a student has paid a fee.
+Go to '.../forms/form/' to see a list of forms.
+
+These forms are reusable.
+
+### To create a form:
+
+To create a form go to '.../forms/form/add'. The only field is a form name.
+
+### Form submissions
+
+To record a form submission to go '.../forms/formsubmission/add/'. This will tie a form to a person, also known as 'Individual'. You can look up the person and add them if they aren't on the list.
+Select the form name, if the form isn't listed, you can add it.
+
+## Records
+
+Records are used to record a volunteers hours. Visit '../time_tracker/record/'
+
