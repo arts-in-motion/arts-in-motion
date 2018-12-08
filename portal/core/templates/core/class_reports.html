@@ -1,0 +1,24 @@
+{% extends "core/base.html" %}
+{% block content %}
+
+
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>Class Name</th>
+            <th>Instructor</th>
+            <th>Dates</th>
+
+        </tr>
+    </thead>
+    {% for class in classes %}
+    <tr class="clickable" onclick="document.location.href='{% url "detail_class_reports" class_id=class.id %}';">
+        <td>{{ class.description }}</td>
+        <td>{{ class.instruction }}</td>
+        <td>{{ class.start_date }} - {{ class.end_date }}</td>
+
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}
