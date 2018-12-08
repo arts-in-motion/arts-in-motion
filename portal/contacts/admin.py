@@ -83,6 +83,7 @@ class IndividualDonorInline(DonorInline):
 class OrganizationDonorInline(DonorInline):
     exclude = ['individual']
 
+
 class ActiveClassesListFilter(admin.SimpleListFilter):
     title = 'Class'
     parameter_name = 'class'
@@ -96,6 +97,7 @@ class ActiveClassesListFilter(admin.SimpleListFilter):
     def queryset(self, request, queryset):
         class_id = self.value()
         return queryset.filter(student__classes__id=class_id)
+
 
 @admin.register(models.Individual)
 class IndividualAdmin(admin.ModelAdmin):
@@ -125,6 +127,7 @@ class IndividualAdmin(admin.ModelAdmin):
         IndividualDonorInline,
         FormSubmissionInline,
     ]
+
     list_filter = [
         'is_artist',
         'is_board',
