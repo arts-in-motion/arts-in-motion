@@ -10,6 +10,7 @@ def class_reports(request):
     classes = Class.objects.all()
     return render(request, 'core/class_reports.html', {'classes': classes})
 
+
 @login_required
 def detail_class_reports(request, class_id):
     aim_class = get_object_or_404(Class, pk=class_id)
