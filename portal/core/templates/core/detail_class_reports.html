@@ -1,0 +1,23 @@
+{% extends "core/base.html" %}
+{% block content %}
+
+{{ class.description }} - {{ class.instructor }} {{ class.start_date }} - {{ class.end_date }}
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>Student Name</th>
+            <th>Emergency Contact</th>
+            <th>Guardian</th>
+
+        </tr>
+    </thead>
+    {% for student in students %}
+    <tr class="clickable" >
+        <td>{{ student.individual }}</td>
+        <td>{{ student.emergency_contact }}</td>
+        <td>{{ student.guardian }}</td>
+
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
