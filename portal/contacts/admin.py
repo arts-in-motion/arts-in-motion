@@ -195,11 +195,11 @@ class IndividualAdmin(admin.ModelAdmin):
         if not individual:
             return None
 
-        name = ' '.join([individual.first_name,individual.last_name])
+        name = ' '.join([individual.first_name, individual.last_name])
 
-        return "<br />".join([name,individual.phone_number])
+        return "<br />".join([name, individual.phone_number])
 
-    _guardian.allow_tags = True;
+    _guardian.allow_tags = True
 
 @admin.register(models.Organization)
 class OrganizationAdmin(admin.ModelAdmin):
