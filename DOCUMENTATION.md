@@ -21,7 +21,7 @@
 
 #### Adding
 
-To add a donor click the Add donor button on the top right. Donors can be both an Individual and an Orginization. 
+To add a donor click the Add donor button on the top right. Donors can be both an Individual and an Orginization.
 
 #### Searching
 
@@ -163,5 +163,5 @@ Select the form name, if the form isn't listed, you can add it.
 
 ## Records
 
-Records are used to record a volunteers hours. Visit '../time_tracker/record/'
+Records are used to record a volunteers hours. Visit '.../time_tracker/record/' to see a list and add more instances of a time record.
 
