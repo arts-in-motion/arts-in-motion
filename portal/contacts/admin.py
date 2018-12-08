@@ -176,12 +176,11 @@ class IndividualAdmin(admin.ModelAdmin):
             categories.append('Board Member')
         return ' / '.join(categories) if categories else None
 
-    @staticmethod
-    def _guardian(individual):
-        if not individual.is_student:
+    def _guardian(self, obj):
+        if not obj.is_student:
             return None
 
-        student = individual.student
+        student = obj.student
 
         if not student:
             return None
@@ -191,12 +190,16 @@ class IndividualAdmin(admin.ModelAdmin):
         if not guardian:
             return None
 
-        guardian_individual = guardian.individual
+        individual = guardian.individual
 
-        if not guardian_individual:
+        if not individual:
             return None
 
-        return ' '.join([guardian_individual.first_name,guardian_individual.last_name])
+        name = ' '.join([individual.first_name,individual.last_name])
+
+        return "<br />".join([name,individual.phone_number])
+
+    _guardian.allow_tags = True;
 
 @admin.register(models.Organization)
 class OrganizationAdmin(admin.ModelAdmin):
