@@ -13,5 +13,5 @@ urlpatterns = [
     url(r'^class-reports/(?P<class_id>[^/]+)$',
         views.detail_class_reports,
         name="detail_class_reports"
-        )
+    )
 ]
