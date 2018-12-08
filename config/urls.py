@@ -10,5 +10,8 @@ urlpatterns = [
     url('^export_action/', include("export_action.urls",
                                    namespace="export_action")),
     url(r'^class-reports/$', views.class_reports, name='class_reports'),
-    url(r'^class-reports/(?P<class_id>[^/]+)$', views.detail_class_reports, name="detail_class_reports")
+    url(r'^class-reports/(?P<class_id>[^/]+)$',
+        views.detail_class_reports,
+        name="detail_class_reports"
+        )
 ]
