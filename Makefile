@@ -94,22 +94,22 @@ test: test-all ## Run all tests
 .PHONY: test-unit
 test-unit: install
 	@- mv $(FAILURES) $(FAILURES).bak
-	$(RUN) py.test portal $(PYTEST_OPTIONS)
+	$(RUN) pytest portal $(PYTEST_OPTIONS)
 	@- mv $(FAILURES).bak $(FAILURES)
 	$(RUN) coverage.space arts-in-motion/arts-in-motion unit
 
 .PHONY: test-integration
 test-integration: install
-	@ if test -e $(FAILURES); then $(RUN) py.test tests/integration; fi
+	@ if test -e $(FAILURES); then $(RUN) pytest tests/integration; fi
 	@ rm -rf $(FAILURES)
-	$(RUN) py.test tests/integration $(PYTEST_OPTIONS)
+	$(RUN) pytest tests/integration $(PYTEST_OPTIONS)
 	$(RUN) coverage.space arts-in-motion/arts-in-motion integration
 
 .PHONY: test-all
 test-all: install
-	@ if test -e $(FAILURES); then $(RUN) py.test $(PYTHON_PACKAGES) tests/integration; fi
+	@ if test -e $(FAILURES); then $(RUN) pytest $(PYTHON_PACKAGES) tests/integration; fi
 	@ rm -rf $(FAILURES)
-	$(RUN) py.test $(PYTHON_PACKAGES) tests/integration $(PYTEST_OPTIONS)
+	$(RUN) pytest $(PYTHON_PACKAGES) tests/integration $(PYTEST_OPTIONS)
 	$(RUN) coverage.space arts-in-motion/arts-in-motion overall
 
 .PHONY: test-system
