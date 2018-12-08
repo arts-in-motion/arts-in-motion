@@ -4,6 +4,7 @@ from django.utils.html import format_html_join
 
 from portal.donations.models import Donation
 from portal.forms.models import FormSubmission
+from portal.classes.models import Class
 
 from . import models
 
@@ -83,6 +84,21 @@ class OrganizationDonorInline(DonorInline):
     exclude = ['individual']
 
 
+class ActiveClassesListFilter(admin.SimpleListFilter):
+    title = 'Class'
+    parameter_name = 'class'
+
+    def lookups(self, request, model_admin):
+        classes = Class.objects.filter(active=True).order_by('description')
+        result = [(q.id, q.description) for q in classes]
+
+        return result
+
+    def queryset(self, request, queryset):
+        class_id = self.value()
+        return queryset.filter(student__classes__id=class_id)
+
+
 @admin.register(models.Individual)
 class IndividualAdmin(admin.ModelAdmin):
 
@@ -113,12 +129,13 @@ class IndividualAdmin(admin.ModelAdmin):
     ]
 
     list_filter = [
+        'is_artist',
+        'is_board',
+        ActiveClassesListFilter,
         'is_donor',
         'is_staff',
         'is_student',
         'is_volunteer',
-        'is_artist',
-        'is_board',
     ]
 
     fields = (
