@@ -1,11 +1,48 @@
 {% extends "core/base.html" %}
+{% block header %}
+<script type="text/javascript">
+    function print_current_page() {
+        window.print();
+    }
+    </script>
+
+    <style type="text/css">
+        span{
+            margin-right: 15px;
+        }
+
+        .row{
+            margin-bottom: 20px;
+        }
+
+    </style>
+
+    <style type="text/css" media="print">
+        button{
+            display: none;
+        }
+        .hide-print {
+            display: none;
+        }
+    </style>
+    {% endblock header %}
 {% block content %}
 
-{{ class.description }} - {{ class.instructor }} {{ class.start_date }} - {{ class.end_date }}
+<h2>{{ class.description }} - {{ class.instructor }} {{ class.start_date }} {% if class.end_date %}- {{ class.end_date }}{% endif %}</h1>
+<a class="hide-print" href='{% url "class_reports" %}'><p>Class List</p></a>
+<div class="row">
+        <div class="col-sm-12 hidden-print">
+            <button type="button"  onclick="print_current_page()" class="btn btn-default btn-lg" id="printButton">
+                <span class="glyphicon glyphicon-print"></span> Print
+            </button>
+        </div>
+    </div>
 <table class="table table-striped table-hover">
     <thead>
         <tr>
             <th>Student Name</th>
+            <th>Phone</th>
+            <th>Email</th>
             <th>Emergency Contact</th>
             <th>Guardian</th>
 
@@ -14,8 +51,10 @@
     {% for student in students %}
     <tr class="clickable" >
         <td>{{ student.individual }}</td>
-        <td>{{ student.emergency_contact }}</td>
-        <td>{{ student.guardian }}</td>
+        <td>{{ student.individual.phone_number }}</td>
+        <td>{{ student.individual.email_address }}</td>
+        <td>{{ student.emergency_contact }} <br> {{ student.emergency_contact.phone_number }}</td>
+        <td>{{ student.guardian }} <br> {{ student.guardian.individual.phone_number }}</td>
 
     </tr>
     {% endfor %}
