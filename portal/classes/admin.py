@@ -15,7 +15,10 @@ class StudentInline(ListInline):
 
 @admin.register(models.Class)
 class ClassAdmin(admin.ModelAdmin):
+    def get_class_link(self, obj):
+        return('<a href="/class-reports/{}">Class Report</a>'.format( obj.id) )
 
+    get_class_link.allow_tags = True
     search_fields = [
         'description',
     ]
@@ -26,6 +29,7 @@ class ClassAdmin(admin.ModelAdmin):
         'instructor',
         'start_date',
         'active',
+        'get_class_link'
     ]
     list_filter = [
         'active',
