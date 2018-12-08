@@ -29,7 +29,11 @@
 {% block content %}
 
 <h2>{{ class.description }} - {{ class.instructor }} {{ class.start_date }} {% if class.end_date %}- {{ class.end_date }}{% endif %}</h1>
-<a class="hide-print" href='{% url "class_reports" %}'><p>Class List</p></a>
+<p class="hide-print">
+    <a href='{% url "class_reports" %}'>Class Report List</a> |
+    <a href='{% url "admin:classes_class_changelist" %}'>Admin Class List</a> |
+    <a href='{% url "admin:classes_class_change" class.id %}'>Admin Edit Class</a>
+</p>
 <div class="row">
         <div class="col-sm-12 hidden-print">
             <button type="button"  onclick="print_current_page()" class="btn btn-default btn-lg" id="printButton">
