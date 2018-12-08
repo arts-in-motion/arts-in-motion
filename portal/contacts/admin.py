@@ -114,6 +114,7 @@ class IndividualAdmin(admin.ModelAdmin):
         'phone_number',
         'email_address',
         '_categories',
+        '_guardian',
     ]
 
     ordering = [
@@ -175,6 +176,30 @@ class IndividualAdmin(admin.ModelAdmin):
             categories.append('Board Member')
         return ' / '.join(categories) if categories else None
 
+    def _guardian(self, obj):
+        if not obj.is_student:
+            return None
+
+        student = obj.student
+
+        if not student:
+            return None
+
+        guardian = student.guardian
+
+        if not guardian:
+            return None
+
+        individual = guardian.individual
+
+        if not individual:
+            return None
+
+        name = ' '.join([individual.first_name, individual.last_name])
+
+        return "<br />".join([name, individual.phone_number])
+
+    _guardian.allow_tags = True
 
 @admin.register(models.Organization)
 class OrganizationAdmin(admin.ModelAdmin):
