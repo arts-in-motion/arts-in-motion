@@ -17,7 +17,9 @@
 * Time Tracker
     + [Records](#records)
 
-### Donors
+## Donors
+
+Donors are a list of individuals and/or orginizations that have donated.
 
 #### Adding
 
@@ -33,7 +35,7 @@ You can sort the table by ID, the individuals's name or by the organization's na
 
 You can export or delete the list of Donors you've selected by going to the bottom left and clicking the dropdown and selecting your desired action.
 
-### Individuals
+## Individuals
 
 Individuals can be any of the following: Donors, Students, Artists, Staff, Volunteers, and Board Members.
 
@@ -57,7 +59,7 @@ You can add Student, Volunteer, and Donors info to the individual on this screen
 
 You can export or delete the list of individuals you've selected by going to the bottom left and clicking the dropdown and selecting your desired action.
 
-### Organizations
+## Organizations
 
 Organizations are used for donors and for general contacts.
 
