@@ -1,7 +1,79 @@
 # Documentation
 
+* Address Book
+    + [Donors](#donors)
+    + [Individuals](#individuals)
+    + [Organizations](#organizations)
+* Authentication and Authorization
+    + [Users and User Groups](#users-and-user-groups)
+* Classes
+    + [Classes](#classes)
+* Donations
+    + [Donations](#donations)
+* Events
+    + [Events](#events)
+* Forms
+    + [Forms](#forms)
+* Time Tracker
+    + [Records](#records)
 
+### Donors
 
+#### Adding
+
+To add a donor click the Add donor button on the top right. Donors can be both an Individual and an Orginization. 
+
+#### Searching
+
+The search bar searches through the Individual's name and the Organization's name.
+
+You can sort the table by ID, the individuals's name or by the organization's name.
+
+#### Exporting/Deleting
+
+You can export or delete the list of Donors you've selected by going to the bottom left and clicking the dropdown and selecting your desired action.
+
+### Individuals
+
+Individuals can be any of the following: Donors, Students, Artists, Staff, Volunteers, and Board Members.
+
+#### Searching and Filtering
+
+The search bar will let you search individuals by name and email
+
+You can sort the table by ID, Phone Number, and Email address.
+
+The filter tab located in the top right under the Add individual button will let you filter the individuals based on their categories or by what class they are currently enrolled in.
+
+#### Adding
+
+To add an Individual click the Add individual button on the top right.
+
+You can mark the individual into the categories mentioned above.
+
+You can add Student, Volunteer, and Donors info to the individual on this screen.
+
+#### Exporting/Deleting
+
+You can export or delete the list of individuals you've selected by going to the bottom left and clicking the dropdown and selecting your desired action.
+
+### Organizations
+
+Organizations are used for donors and for general contacts.
+
+#### Searching and Filtering
+
+The search bar will let you search organizations by name and email
+
+You can sort the table by ID, Phone Number, and Email address.
+
+#### Adding
+
+To add an organization click the Add organization button on the top right.
+
+#### Exporting/Deleting
+
+You can export or delete the list of organizations you've selected by going to the bottom left and clicking the dropdown and selecting your desired action.
 
 
 ## Users and User Groups
