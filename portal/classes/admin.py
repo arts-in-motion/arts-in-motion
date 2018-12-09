@@ -1,3 +1,5 @@
+# pylint: disable=no-self-use
+
 from django.contrib import admin
 
 from portal.contacts.models import Student

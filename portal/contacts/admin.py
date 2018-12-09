@@ -1,3 +1,5 @@
+# pylint: disable=no-self-use
+
 from django.contrib import admin
 from django.shortcuts import reverse
 from django.utils.html import format_html_join
@@ -200,6 +202,7 @@ class IndividualAdmin(admin.ModelAdmin):
         return "<br />".join([name, individual.phone_number])
 
     _guardian.allow_tags = True
+
 
 @admin.register(models.Organization)
 class OrganizationAdmin(admin.ModelAdmin):
