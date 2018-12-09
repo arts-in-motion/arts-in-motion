@@ -100,7 +100,7 @@ class Command(BaseCommand):
                     email_address=fake.email(),
                     date_of_birth=fake.date(),
                     signed_up_date=fake.date(),
-                    is_artist=True if p(0.05) else False,
+                    is_artist=bool(p(0.05)),
                 )
                 self.stdout.write(f"Created individual: {obj}")
 
