@@ -10,7 +10,7 @@ python_version = "3.6"
 [packages]
 
 # Django
-django = "~=1.11"
+django = "~=2.2"
 django-grappelli = "*"
 django-export-action = "*"
 
